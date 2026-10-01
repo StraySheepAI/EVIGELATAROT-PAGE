@@ -1,0 +1,63 @@
+{
+  "branding": {
+    "logo_nav": "/amatur-flow-logo-nav.png",
+    "founder_photo": "/rocio-mpa-flow.jpg"
+  },
+  "hero": {
+    "eyebrow_es": "Arquitectura de sistemas · Transformación organizacional",
+    "eyebrow_en": "Systems Architecture · Organizational Transformation",
+    "title_es": "Diseñamos sistemas<br><em>para que las organizaciones</em><br>funcionen, respondan y evolucionen.",
+    "title_en": "We design systems<br><em>so organizations can</em><br>function, respond, and evolve.",
+    "subtitle_es": "Observar el sistema. Diseñar el flujo. Sostener la transformación.",
+    "subtitle_en": "Observe the system. Design the flow. Sustain transformation.",
+    "lead_es": "MPA Flow es una consultora de arquitectura de sistemas y transformación organizacional. Diseñamos y lideramos transformaciones conectando procesos, talento, tecnología e IA aplicada: desde la observación del sistema hasta el diseño, implementación, adopción y evolución de nuevas formas de operar.",
+    "lead_en": "MPA Flow is a systems architecture and organizational transformation consultancy. We design and lead transformations by connecting processes, talent, technology, and applied AI—from observing the system through designing, implementing, adopting, and evolving new ways of operating."
+  },
+  "sections": {
+    "method_title_es": "Método <em>FLOW</em>",
+    "method_title_en": "The <em>FLOW</em> Method",
+    "services_title_es": "La intervención correcta, <em>en la capa correcta</em>",
+    "services_title_en": "The right intervention, <em>at the right layer</em>",
+    "action_title_es": "Arquitecturas <em>en acción</em>",
+    "action_title_en": "Architectures <em>in action</em>"
+  },
+  "team": {
+    "rocio": {
+      "name": "Rocío Dopazo",
+      "photo": "/assets/rocio-dopazo-team.png",
+      "role_es": "Estrategia · Vision Builder · Arquitectura de sistemas · Gestión del cambio · Capability Building",
+      "role_en": "Strategy · Vision Builder · Systems Architecture · Change Management · Capability Building",
+      "bio_es": "Reingeniería de sistemas y procesos, análisis funcional, facilitación Agile y de transformación, desarrollo de capacidades, diseño y prototipado de soluciones.",
+      "bio_en": "Systems and process reengineering, functional analysis, Agile and transformation facilitation, capability building, solution design and prototyping.",
+      "portfolio": "https://portfolio.rociodopazo.com"
+    }
+  },
+  "projects": [
+    {
+      "name": "JRInvestor",
+      "visible": true,
+      "featured": true,
+      "category_es": "Producto digital · Inteligencia patrimonial con IA",
+      "category_en": "Digital product · AI-powered wealth intelligence",
+      "description_es": "Plataforma que consolida posiciones de Wall Street y Argentina y articula agentes especializados para convertir información financiera en análisis claros y accionables.",
+      "description_en": "A platform that consolidates Wall Street and Argentine positions and coordinates specialized agents to turn financial information into clear, actionable analysis.",
+      "image": "/assets/jrinvestor-cover.png",
+      "image_alt": "JRInvestor — plataforma de inteligencia patrimonial con agentes de IA",
+      "url": "",
+      "tags": ["Arquitectura de producto", "Agentización con IA", "Integración de datos", "UX", "Full Stack"],
+      "challenge_es": "Unificar activos distribuidos entre mercados, monedas y brokers sin perder contexto para la decisión.",
+      "challenge_en": "Unify assets distributed across markets, currencies, and brokers without losing decision context.",
+      "architecture_es": "Portfolios consolidados, integración de datos y un sistema de agentes especializados para análisis, alertas e informes.",
+      "architecture_en": "Consolidated portfolios, data integration, and specialized agents for analysis, alerts, and reporting.",
+      "outcome_es": "Una lectura patrimonial centralizada, comprensible y orientada a decisiones accionables.",
+      "outcome_en": "A centralized, understandable wealth view designed for actionable decisions."
+    }
+  ],
+  "contact": {
+    "email": "hello@mpaflow.com",
+    "title_es": "¿Qué querés hacer <em>posible?</em>",
+    "title_en": "What are you looking to make <em>possible?</em>",
+    "lead_es": "Contanos un poco sobre tu idea, necesidad o desafío. No necesitás saber todavía qué solución necesitás. Podemos empezar por la pregunta.",
+    "lead_en": "Tell us a little about your idea, need, or challenge. You don't need to know yet what kind of solution you need. We can start with the question."
+  }
+}

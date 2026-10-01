@@ -1,0 +1,107 @@
+backend:
+  name: git-gateway
+  branch: main
+
+locale: es
+media_folder: "MPA-Flow-GitHub-Ready/assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "site"
+    label: "Página MPA Flow"
+    files:
+      - name: "general"
+        label: "Contenido principal"
+        file: "MPA-Flow-GitHub-Ready/content/site.json"
+        format: "json"
+        fields:
+          - label: "Identidad visual"
+            name: "branding"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Logo del menú", name: "logo_nav", widget: "image" }
+              - { label: "Fotografía de fundadora", name: "founder_photo", widget: "image" }
+          - label: "Portada"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Antetítulo (ES)", name: "eyebrow_es", widget: "string" }
+              - { label: "Antetítulo (EN)", name: "eyebrow_en", widget: "string" }
+              - { label: "Título (ES)", name: "title_es", widget: "string", hint: "Se admite <br> y <em> para conservar el diseño." }
+              - { label: "Título (EN)", name: "title_en", widget: "string", hint: "Se admite <br> y <em> para conservar el diseño." }
+              - { label: "Frase (ES)", name: "subtitle_es", widget: "string" }
+              - { label: "Frase (EN)", name: "subtitle_en", widget: "string" }
+              - { label: "Descripción (ES)", name: "lead_es", widget: "text" }
+              - { label: "Descripción (EN)", name: "lead_en", widget: "text" }
+          - label: "Secciones principales"
+            name: "sections"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Método — título ES", name: "method_title_es", widget: "string" }
+              - { label: "Método — título EN", name: "method_title_en", widget: "string" }
+              - { label: "Servicios — título ES", name: "services_title_es", widget: "string" }
+              - { label: "Servicios — título EN", name: "services_title_en", widget: "string" }
+              - { label: "En acción — título ES", name: "action_title_es", widget: "string" }
+              - { label: "En acción — título EN", name: "action_title_en", widget: "string" }
+          - label: "Equipo"
+            name: "team"
+            widget: "object"
+            fields:
+              - label: "Rocío Dopazo"
+                name: "rocio"
+                widget: "object"
+                fields:
+                  - { label: "Nombre", name: "name", widget: "string" }
+                  - { label: "Foto", name: "photo", widget: "image" }
+                  - { label: "Rol (ES)", name: "role_es", widget: "text" }
+                  - { label: "Rol (EN)", name: "role_en", widget: "text" }
+                  - { label: "Descripción (ES)", name: "bio_es", widget: "text" }
+                  - { label: "Descripción (EN)", name: "bio_en", widget: "text" }
+                  - { label: "URL del portfolio", name: "portfolio", widget: "string" }
+              - label: "Julián Rodríguez"
+                name: "julian"
+                widget: "object"
+                fields:
+                  - { label: "Nombre", name: "name", widget: "string" }
+                  - { label: "Foto", name: "photo", widget: "image" }
+                  - { label: "Rol (ES)", name: "role_es", widget: "text" }
+                  - { label: "Rol (EN)", name: "role_en", widget: "text" }
+                  - { label: "Descripción (ES)", name: "bio_es", widget: "text" }
+                  - { label: "Descripción (EN)", name: "bio_en", widget: "text" }
+          - label: "Arquitecturas en acción"
+            name: "projects"
+            widget: "list"
+            collapsed: true
+            summary: "{{fields.name}}"
+            fields:
+              - { label: "Nombre", name: "name", widget: "string" }
+              - { label: "Visible", name: "visible", widget: "boolean", default: true }
+              - { label: "Proyecto destacado", name: "featured", widget: "boolean", default: false }
+              - { label: "Categoría (ES)", name: "category_es", widget: "string" }
+              - { label: "Categoría (EN)", name: "category_en", widget: "string" }
+              - { label: "Descripción (ES)", name: "description_es", widget: "text" }
+              - { label: "Descripción (EN)", name: "description_en", widget: "text" }
+              - { label: "Imagen de portada", name: "image", widget: "image" }
+              - { label: "Texto alternativo de imagen", name: "image_alt", widget: "string" }
+              - { label: "URL del producto", name: "url", widget: "string", required: false }
+              - label: "Capacidades"
+                name: "tags"
+                widget: "list"
+                field: { label: "Capacidad", name: "tag", widget: "string" }
+              - { label: "Desafío (ES)", name: "challenge_es", widget: "text", required: false }
+              - { label: "Desafío (EN)", name: "challenge_en", widget: "text", required: false }
+              - { label: "Arquitectura (ES)", name: "architecture_es", widget: "text", required: false }
+              - { label: "Arquitectura (EN)", name: "architecture_en", widget: "text", required: false }
+              - { label: "Capacidad / resultado (ES)", name: "outcome_es", widget: "text", required: false }
+              - { label: "Capacidad / resultado (EN)", name: "outcome_en", widget: "text", required: false }
+          - label: "Contacto"
+            name: "contact"
+            widget: "object"
+            fields:
+              - { label: "Email receptor", name: "email", widget: "string" }
+              - { label: "Título (ES)", name: "title_es", widget: "string", hint: "Se admite <em> para conservar el destaque." }
+              - { label: "Título (EN)", name: "title_en", widget: "string", hint: "Se admite <em> para conservar el destaque." }
+              - { label: "Introducción (ES)", name: "lead_es", widget: "text" }
+              - { label: "Introducción (EN)", name: "lead_en", widget: "text" }
