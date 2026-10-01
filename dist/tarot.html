@@ -12,8 +12,10 @@
   <style>
     :root{--ink:#13051d;--deep:#1b0828;--violet:#6f258c;--violet-bright:#d06df2;--violet-soft:#e8baf3;--gold:#b08a5a;--gold-soft:#d8b886;--paper:#f3e8d6;--paper-2:#ead8bf;--paper-ink:#261629;--muted:#baa8bd;--white:#fff9f5;--line:rgba(176,138,90,.4);--shadow:0 24px 70px rgba(0,0,0,.32)}
     *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--white);background:var(--ink);font-family:'DM Sans',sans-serif;overflow-x:hidden}a{color:inherit}button{font:inherit}
-    .page-glow{position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(circle at 82% 10%,rgba(156,54,193,.34),transparent 34%),radial-gradient(circle at 12% 72%,rgba(75,30,103,.28),transparent 30%),linear-gradient(115deg,#0b0311,#190722 56%,#0c0314)}
-    .page-glow:after{content:"";position:absolute;inset:0;opacity:.2;background:url('mar-del-plata-night.png') center/cover;filter:blur(3px) saturate(.75);mix-blend-mode:screen}
+    .page-glow{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden;background:radial-gradient(circle at 82% 8%,rgba(156,54,193,.34),transparent 30%),radial-gradient(circle at 12% 72%,rgba(75,30,103,.3),transparent 34%),linear-gradient(115deg,#08020f,#190722 56%,#0a0312)}
+    .page-glow:before{content:"";position:absolute;inset:-12%;opacity:.38;background:radial-gradient(1px 1px at 11% 18%,#f3e8d6 0 1px,transparent 2px),radial-gradient(1px 1px at 78% 14%,#d8b886 0 1px,transparent 2px),radial-gradient(1px 1px at 64% 72%,#f3e8d6 0 1px,transparent 2px),radial-gradient(2px 2px at 32% 82%,#d06df2 0 1px,transparent 2px),radial-gradient(1px 1px at 92% 58%,#f3e8d6 0 1px,transparent 2px);background-size:280px 240px,360px 320px,420px 360px,520px 460px,640px 540px;animation:starDrift 34s linear infinite}
+    .page-glow:after{content:"";position:absolute;left:50%;top:8%;width:min(850px,90vw);height:min(850px,90vw);transform:translateX(-50%);opacity:.16;background:url('assets/CONTRACARA.png') center/contain no-repeat;filter:blur(.4px) saturate(1.2);mix-blend-mode:screen}
+    @keyframes starDrift{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(-22px,18px,0) scale(1.03)}}
     header{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(20px,5vw,72px);background:rgba(13,3,20,.78);backdrop-filter:blur(18px);border-bottom:1px solid rgba(176,138,90,.24)}
     .brand{display:flex;align-items:center;gap:14px;text-decoration:none}.brand-mark{width:54px;height:54px;display:block;object-fit:contain;filter:drop-shadow(0 0 12px rgba(176,138,90,.48))}.brand-copy{font-family:'Cinzel',serif;font-size:11px;line-height:1.45;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-soft)}.brand-copy span{display:block;color:var(--violet-soft);font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.3em}
     nav{display:flex;align-items:center;gap:24px}nav a{font-size:12px;color:var(--muted);text-decoration:none}nav a:hover{color:var(--white)}.nav-cta{border:1px solid var(--gold);border-radius:999px;padding:10px 16px;color:var(--gold-soft)!important}
@@ -44,7 +46,7 @@
       <div class="brand-copy">MPA · EVIGILA<span>Tarot de los Essentors</span></div>
     </a>
     <nav aria-label="Navegación de Tarot">
-      <a href="#codex">Códex</a><a href="#aprendizaje">Aprender</a><a href="#practica-juego">Jugar</a><a href="#tiradas">Tiradas</a><a class="nav-cta" href="#contacto">Lectura personalizada</a>
+      <a href="#codex">Códex</a><a href="#aprendizaje">Aprender</a><a href="#practica-juego">Jugar</a><a href="#tiradas">Tiradas</a><a href="#ediciones">Ediciones</a><a class="nav-cta" href="#contacto">Entrar al universo</a>
     </nav>
   </header>
 
@@ -58,7 +60,7 @@
       </div>
       <div class="portal" aria-label="Portal visual del Tarot EVIGILA">
         <div class="portal-label">MPA Tarot · Bloque IV</div><div class="orbit"></div>
-        <div class="tarot-card"><div class="hero-card-name">Contracara<small>Dorso del mazo · imagen pendiente de verificación</small></div></div>
+        <div class="tarot-card"><img src="assets/CONTRACARA.png" alt="Contracara del mazo EVIGILA"><div class="hero-card-name">Contracara<small>Dorso común · fuente Drive</small></div></div>
         <div class="portal-note">Cada carta es una llave: no cierra un significado, abre una pregunta.</div>
       </div>
     </section>
@@ -128,6 +130,17 @@
       </div>
     </section>
 
+    <section class="section" id="ediciones">
+      <div class="wrap">
+        <div class="section-head"><div class="eyebrow">El universo también se lleva</div><h2>Elegí tu puerta<br><em>de entrada.</em></h2><p>EVIGILA puede acompañarte como mazo físico para consultar o como sistema completo de estudio y práctica.</p></div>
+        <div class="entry-grid">
+          <article class="entry product-card"><div class="tag">Edición esencial</div><h3>Mazo + guía breve</h3><p>Las cartas impresas y una guía pequeña para conocer cada familia, sus significados principales y las primeras tiradas.</p><span class="tag">Para empezar a leer</span></article>
+          <article class="entry product-card"><div class="tag">Edición de estudio</div><h3>Mazo + Códex</h3><p>El mazo, el libro completo y acceso digital al aula EVIGILA: correspondencias, prácticas, tiradas y recorrido de aprendizaje.</p><span class="tag">Para profundizar y jugar</span></article>
+        </div>
+        <p class="spell-line" style="margin-top:26px;text-align:center"><span>✦</span> próximamente: muestras del mazo impreso y pedidos bajo demanda <span>✦</span></p>
+      </div>
+    </section>
+
     <section class="contact wrap" id="contacto"><div class="eyebrow">Cuando quieras ir más profundo</div><h2>Si necesitás una lectura situada, podemos mirar la tirada juntos.</h2><p>La guía te da un lenguaje para empezar. Una sesión personalizada permite trabajar tus preguntas, tus cartas y el contexto que no entra en una lectura general.</p><div class="hero-actions"><a class="btn primary" href="mailto:mpaflowconsulting@gmail.com?subject=Quiero%20una%20lectura%20personalizada%20de%20EVIGILA">Contactarme para una lectura →</a><a class="btn ghost" href="https://rociodopazo.com/#/obra/magia-para-atrevidos" target="_blank" rel="noreferrer">Conocer Magia para Atrevidos ↗</a></div></section>
   </main>
   <footer class="wrap foot"><span>MPA · EVIGILA</span><a href="https://rociodopazo.com/#/obra/magia-para-atrevidos" target="_blank" rel="noreferrer">Volver a Magia para Atrevidos ↗</a></footer>
@@ -161,7 +174,18 @@
       {id:'021',name:'Aetheris',family:'confirmadas',role:'Carta confirmada',meaning:'Significado pendiente de cargar desde la base maestra.',question:'¿Qué conexión invisible sostiene esto?',practice:'dibujá la relación entre dos elementos.',image:'assets/021_INF_AETHERIS.png'},
       {id:'I',name:'Lethe',family:'confirmadas',role:'Carta confirmada',meaning:'Significado pendiente de cargar desde la base maestra.',question:'¿Qué necesita ser soltado?',practice:'anotá qué ya no querés repetir.',image:'assets/I_INF_LETHE.png'},
       {id:'II',name:'Aletheia',family:'confirmadas',role:'Carta confirmada',meaning:'Significado pendiente de cargar desde la base maestra.',question:'¿Qué claridad puede emerger?',practice:'nombrá lo que ahora ves con más honestidad.',image:'assets/II_INF_ALETHEIA.png'},
-      {id:'III',name:'Khemia',family:'confirmadas',role:'Carta confirmada',meaning:'Significado pendiente de cargar desde la base maestra.',question:'¿Qué transformación está en curso?',practice:'señalá la mezcla de fuerzas que la produce.',image:'assets/III_INF_KHEMIA.png'}
+      {id:'III',name:'Khemia',family:'confirmadas',role:'Carta confirmada',meaning:'Significado pendiente de cargar desde la base maestra.',question:'¿Qué transformación está en curso?',practice:'señalá la mezcla de fuerzas que la produce.',image:'assets/III_INF_KHEMIA.png'},
+      {id:'G-FRACTUM',name:'Fractum',family:'guardianes',role:'Guardián · Correspondencia',meaning:'Cada fragmento refleja el todo: lo que ocurre en un plano deja una forma visible en los demás.',question:'¿Qué patrón se repite entre lo pequeño y lo grande?',practice:'buscá una correspondencia concreta antes de sacar conclusiones.',image:'assets/ET_INF_FRACTUM.jpg'},
+      {id:'G-EMANATUS',name:'Emanatus',family:'guardianes',role:'Guardián · Mentalismo',meaning:'Todo lo que aparece en la experiencia primero fue pensado, imaginado o sostenido por una mente.',question:'¿Qué idea está dando forma a esta escena?',practice:'distinguí el pensamiento que crea del pensamiento que limita.',image:'assets/ET_INF_EMANATUS.jpg'},
+      {id:'G-TEMPUS',name:'Tempus',family:'guardianes',role:'Guardián · Ritmo',meaning:'Todo avanza y retrocede en ciclos; reconocer el pulso permite acompañar el momento justo.',question:'¿En qué fase del ciclo estás?',practice:'nombrá qué está creciendo, qué está descendiendo y qué pide pausa.',image:'assets/ET_INF_TEMPUS.jpg'},
+      {id:'G-REACTUS',name:'Reactus',family:'guardianes',role:'Guardián · Causa y efecto',meaning:'Cada acción deja una huella y cada huella genera un eco, aunque el vínculo no sea inmediato ni lineal.',question:'¿Qué causa anterior sigue actuando en el presente?',practice:'seguí la cadena de consecuencias sin buscar un único comienzo.',image:'assets/ET_INF_REACTUS.jpg'},
+      {id:'G-PULSUS',name:'Pulsus',family:'guardianes',role:'Guardián · Vibración',meaning:'Nada está completamente quieto: todo emite, recibe y responde a un impulso.',question:'¿Qué vibración está moviendo la situación?',practice:'observá qué cambia cuando modificás tu propio pulso.',image:'assets/ET_INF_PULSUS.jpg'},
+      {id:'G-POLARIS',name:'Polaris',family:'guardianes',role:'Guardián · Polaridad',meaning:'Los opuestos son grados de una misma naturaleza; el movimiento está en encontrar el punto de relación.',question:'¿Entre qué dos polos se organiza la escena?',practice:'describí ambos extremos y buscá el puente que los conecta.',image:'assets/ET_INF_POLARIS.jpg'},
+      {id:'E-TERRA',name:'Terra',family:'elementos',role:'Elemento · Tierra',meaning:'Materialización, construcción y cimientos: aquello que toma forma y puede sostenerse.',question:'¿Qué necesita echar raíces?',practice:'convertí una intención en un paso concreto y verificable.',image:'assets/ET_INF_TERRA.jpg'},
+      {id:'E-AETHER',name:'Aether',family:'elementos',role:'Elemento · Éter',meaning:'El campo sutil que conecta, integra y da sentido a las demás fuerzas.',question:'¿Qué vínculo invisible reúne las partes?',practice:'dibujá la red que sostiene lo que estás viendo.',image:'assets/ET_INF_AETHER.jpg'},
+      {id:'E-AQUA',name:'Aqua',family:'elementos',role:'Elemento · Agua',meaning:'Emoción, sensibilidad y movimiento interior: lo que fluye y transforma desde adentro.',question:'¿Qué emoción está pidiendo circular?',practice:'nombrá la emoción sin juzgarla y dejá que indique una dirección.',image:'assets/ET_INF_AQUA.jpg'},
+      {id:'E-AER',name:'Aer',family:'elementos',role:'Elemento · Aire',meaning:'Mente, lenguaje y comunicación: lo intangible que organiza y transmite.',question:'¿Qué idea necesita ser expresada?',practice:'poné en palabras simples lo que hasta ahora era difuso.',image:'assets/ET_INF_AER.jpg'},
+      {id:'E-FIAMMA',name:'Fiamma',family:'elementos',role:'Elemento · Fuego',meaning:'Impulso, deseo y acción: la chispa que inicia el movimiento.',question:'¿Qué quiere ponerse en marcha?',practice:'elegí una acción pequeña que encienda el proceso.',image:'assets/ET_INF_FIAMMA.jpg'}
     ];
     const lessonGrid=document.getElementById('lessonGrid');
     const lessonDetail=document.getElementById('lessonDetail');
@@ -182,9 +206,10 @@
     const spreadSlots=[{label:'Lo que fue',key:'past'},{label:'Lo que está siendo',key:'present'},{label:'Lo posible',key:'future'}];
     const spreadReadings={past:'Trae la huella que todavía organiza la escena.',present:'Muestra la energía que está pidiendo atención ahora.',future:'Abre una posibilidad: no promete, invita a participar.'};
     const practiceUsedIds=new Set();
+    const readingLessons=lessons.filter(card=>card.family==='confirmadas');
     function drawSpread(){
-      if(!lessons.length){document.getElementById('drawnSpread').innerHTML='<div class="lesson-empty">La tirada se habilita cuando estén registradas las cartas confirmadas del proyecto correcto de Canva.</div>';document.getElementById('spreadMessage').innerHTML='<strong>Base limpia</strong><br>No se muestran cartas de otros proyectos ni se generan duplicados.';return;}
-      const pool=[...lessons].sort(()=>Math.random()-.5).slice(0,Math.min(3,lessons.length));
+      if(!readingLessons.length){document.getElementById('drawnSpread').innerHTML='<div class="lesson-empty">La tirada se habilita cuando estén registradas las cartas confirmadas del proyecto correcto.</div>';document.getElementById('spreadMessage').innerHTML='<strong>Base limpia</strong><br>No se muestran cartas de otros proyectos ni se generan duplicados.';return;}
+      const pool=[...readingLessons].sort(()=>Math.random()-.5).slice(0,Math.min(3,readingLessons.length));
       document.getElementById('drawnSpread').innerHTML=pool.map((card,index)=>{const reversed=Math.random()>.62;return `<article class="draw-slot"><div class="draw-slot-label">${spreadSlots[index].label}</div><div class="draw-card${reversed?' reversed':''}"><img src="${card.image}" alt="${card.name}${reversed?' invertida':''}"></div><div class="draw-slot-name">${card.name}${reversed?' · invertida':''}</div><div class="draw-slot-role">${card.role}</div><div class="draw-slot-reading">${reversed?'La energía aparece hacia adentro: ':''}${spreadReadings[spreadSlots[index].key]}</div></article>`}).join('');
       const names=pool.map(card=>card.name).join(' · ');
       document.getElementById('spreadMessage').innerHTML=`<strong>Mensaje de la tirada</strong><br><b>${names}</b> forman una secuencia. Observá qué cambia entre la huella, el presente y la posibilidad, y elegí una acción pequeña que la ponga en movimiento.`;
@@ -195,8 +220,8 @@
     const deckInstruction=document.getElementById('deckInstruction');
     let selectedDeckCard=null;
     function refreshDeckCard(){
-      if(!lessons.length){deckInstruction.textContent='La práctica se habilita cuando terminemos de verificar las cartas del Canva correcto.';return;}
-      const available=lessons.filter(card=>!practiceUsedIds.has(card.id));
+      if(!readingLessons.length){deckInstruction.textContent='La práctica se habilita cuando terminemos de verificar las cartas del proyecto correcto.';return;}
+      const available=readingLessons.filter(card=>!practiceUsedIds.has(card.id));
       if(!available.length){selectedDeckCard=null;deckInstruction.textContent='Ya recorriste todas las cartas confirmadas en esta práctica. Reiniciá la práctica para volver a empezar.';return;}
       selectedDeckCard=available[Math.floor(Math.random()*available.length)];
       deckCard.querySelector('img').src=selectedDeckCard.image;deckCard.querySelector('img').alt=`Carta ${selectedDeckCard.name}`;deckInstruction.textContent=`${selectedDeckCard.name} · ${selectedDeckCard.role} · arrastrala a una posición ✦`;
