@@ -233,7 +233,7 @@
     document.querySelectorAll('[data-family]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-family]').forEach(item=>item.classList.remove('active'));button.classList.add('active');renderLessons(button.dataset.family)}));
     renderLessons();
     const requestedCard=new URLSearchParams(window.location.search).get('c');
-    if(requestedCard&&lessons.some(card=>card.slug===requestedCard||card.id===requestedCard)) { selectLesson(requestedCard,false); setTimeout(()=>document.getElementById('lessonDetail').scrollIntoView({block:'start'}),80); }
+    if(requestedCard&&lessons.some(card=>card.slug===requestedCard||card.id===requestedCard)) { selectLesson(requestedCard,true); setTimeout(()=>document.getElementById('lessonDetail').scrollIntoView({block:'start'}),80); }
     const spreadSlots=[{label:'Lo que fue',key:'past'},{label:'Lo que está siendo',key:'present'},{label:'Lo posible',key:'future'}];
     const spreadReadings={past:'Trae la huella que todavía organiza la escena.',present:'Muestra la energía que está pidiendo atención ahora.',future:'Abre una posibilidad: no promete, invita a participar.'};
     const practiceUsedIds=new Set();
