@@ -107,7 +107,7 @@
             <div class="family-tabs" role="tablist" aria-label="Familias del mazo"><button class="active" data-family="all">Todas</button><button data-family="principios">Principios</button><button data-family="guardianes">Guardianes</button><button data-family="elementos">Elementos</button></div>
             <div class="lesson-grid" id="lessonGrid"></div>
           </div>
-          <aside class="lesson-detail" id="lessonDetail" aria-live="polite"><div class="detail-kicker">Mini guía</div><h3>Elegí una carta</h3><p>Empezá por observar la escena: ¿qué está haciendo esta energía antes de intentar interpretarla?</p><div class="lesson-question">La primera lectura no responde. Formula una pregunta más precisa.</div></aside>
+          <aside class="lesson-detail" id="lessonDetail" aria-label="Mini guía de la carta seleccionada" aria-live="polite"><div class="detail-kicker">Mini guía</div><h3>Elegí una carta</h3><p>Empezá por observar la escena: ¿qué está haciendo esta energía antes de intentar interpretarla?</p><div class="lesson-question">La primera lectura no responde. Formula una pregunta más precisa.</div></aside>
         </div>
       </div>
     </section>
@@ -226,14 +226,14 @@
       const c=card.codex||{};
       const keywords=card.keywords.map(item=>`<span>${item}</span>`).join('');
       const expanded=[['Historia / identidad',c.identity],['Símbolos y lectura simbólica',c.symbols],['Operación alquímica y macrofase',c.operation],['Principio',c.principle],['Elemento',c.element],['Regente',c.regent],['Ordo y legado',`${c.ordo||'En desarrollo'}. ${c.legacy||''}`],['Preguntas de autoconsulta',c.self],['Relaciones con Lethe, Aletheia y Metabole',c.relations],['Relaciones con Custodios',c.custodians],['Combinaciones y lecturas relacionales',c.combinations],['Tiradas o ejemplos de uso',c.uses],['Contenido futuro',c.future]].filter(([,text])=>text).map(([title,text])=>`<details><summary>${title}</summary><p>${text}</p></details>`).join('');
-      const url=new URL(window.location.href); url.searchParams.set('c',card.slug);
+      const url=new URL(window.location.href); url.searchParams.set('c',card.slug); url.hash='mini-guia';
       if(updateUrl) window.history.replaceState({},'',url);
-      lessonDetail.innerHTML=`<div class="detail-kicker">Mini guía · ${card.family}</div><div class="mini-guide"><img src="${card.image}" alt="Carta ${card.name}"><div><h4>${card.name}</h4><p>${card.role}</p><a class="stable-link" href="${url.pathname}?c=${card.slug}#aprendizaje">Abrir enlace estable ↗</a></div></div><p>${card.summary}</p><span class="guide-label">Palabras clave</span><div class="keyword-list">${keywords}</div><span class="guide-label">Energía</span><div class="flow-grid"><div><b>Fluida</b>${card.flow}</div><div><b>Bloqueada</b>${card.blocked}</div></div><span class="guide-label">Correspondencias principales</span><p>${card.correspondences}</p><div class="lesson-question">${card.question}</div><div class="lesson-action">Práctica · ${card.practice}</div><details open><summary>Ampliar en el Códex</summary><div class="codex-sections">${expanded||'<p>Esta ficha está preparada para recibir el contenido ampliado del Códex.</p>'}</div></details>`;
+      lessonDetail.innerHTML=`<div class="detail-kicker">Mini guía · ${card.family}</div><div class="mini-guide"><img src="${card.image}" alt="Carta ${card.name}"><div><h4>${card.name}</h4><p>${card.role}</p><a class="stable-link" href="${url.pathname}?c=${card.slug}#mini-guia">Abrir enlace estable ↗</a></div></div><p>${card.summary}</p><span class="guide-label">Palabras clave</span><div class="keyword-list">${keywords}</div><span class="guide-label">Energía</span><div class="flow-grid"><div><b>Fluida</b>${card.flow}</div><div><b>Bloqueada</b>${card.blocked}</div></div><span class="guide-label">Correspondencias principales</span><p>${card.correspondences}</p><div class="lesson-question">${card.question}</div><div class="lesson-action">Práctica · ${card.practice}</div><details open><summary>Ampliar en el Códex</summary><div class="codex-sections">${expanded||'<p>Esta ficha está preparada para recibir el contenido ampliado del Códex.</p>'}</div></details>`;
     }
     document.querySelectorAll('[data-family]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-family]').forEach(item=>item.classList.remove('active'));button.classList.add('active');renderLessons(button.dataset.family)}));
     renderLessons();
     const requestedCard=new URLSearchParams(window.location.search).get('c');
-    if(requestedCard&&lessons.some(card=>card.slug===requestedCard||card.id===requestedCard)) selectLesson(requestedCard,false);
+    if(requestedCard&&lessons.some(card=>card.slug===requestedCard||card.id===requestedCard)) { selectLesson(requestedCard,false); setTimeout(()=>document.getElementById('lessonDetail').scrollIntoView({block:'start'}),80); }
     const spreadSlots=[{label:'Lo que fue',key:'past'},{label:'Lo que está siendo',key:'present'},{label:'Lo posible',key:'future'}];
     const spreadReadings={past:'Trae la huella que todavía organiza la escena.',present:'Muestra la energía que está pidiendo atención ahora.',future:'Abre una posibilidad: no promete, invita a participar.'};
     const practiceUsedIds=new Set();
