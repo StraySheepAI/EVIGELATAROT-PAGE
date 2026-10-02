@@ -36,6 +36,7 @@
     @media(max-width:850px){.deck-board{grid-template-columns:1fr}.deck-practice-head{align-items:start;flex-direction:column}}
     .drop-slot.filled p{margin:8px 0 0;color:var(--muted);font:400 12px/1.35 'PT Serif',serif}.drop-slot.filled em{display:block;margin-top:8px;color:var(--paper);font:italic 12px/1.35 'PT Serif',serif}.spread-practice{margin-top:24px;padding:22px;border:1px solid rgba(210,170,105,.28);border-radius:16px;background:rgba(8,2,14,.42)}.spread-practice h4{margin:0 0 8px;color:var(--paper);font:500 26px 'Tann Headline','Bodoni Moda','Cormorant Garamond',serif}.spread-practice p{margin:0 0 14px;color:var(--muted);font:400 15px/1.5 'PT Serif',serif}.spread-practice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.spread-practice-grid label{color:var(--gold-soft);font-size:10px;letter-spacing:.12em;text-transform:uppercase}.spread-practice-grid textarea{display:block;width:100%;min-height:84px;margin-top:7px;padding:10px;border:1px solid rgba(210,170,105,.32);border-radius:10px;resize:vertical;background:rgba(255,255,255,.04);color:var(--paper);font:400 14px/1.4 'PT Serif',serif}.spread-practice-note{margin-top:12px;color:var(--gold-soft);font-size:12px}
     @media(max-width:540px){.drop-slots{grid-template-columns:1fr}.drop-slot{min-height:120px}.spread-practice-grid{grid-template-columns:1fr}}
+    .lesson-detail .mini-guide{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:start;margin:14px 0 18px}.lesson-detail .mini-guide img{width:96px;aspect-ratio:2/3;object-fit:cover;border-radius:9px;border:1px solid var(--gold);box-shadow:0 8px 20px rgba(0,0,0,.3)}.lesson-detail .mini-guide h4{margin:0 0 6px;font:500 22px/1.05 'Cinzel',serif;color:var(--paper)}.lesson-detail .mini-guide p{margin:0;font-size:14px;line-height:1.45}.lesson-detail .guide-label{display:block;margin:14px 0 6px;color:var(--gold-soft);font-size:10px;letter-spacing:.16em;text-transform:uppercase}.lesson-detail .keyword-list{display:flex;flex-wrap:wrap;gap:6px;margin:0}.lesson-detail .keyword-list span{padding:5px 8px;border:1px solid rgba(208,109,242,.35);border-radius:999px;color:var(--violet-soft);font-size:11px}.lesson-detail .flow-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.lesson-detail .flow-grid div{padding:10px;border-radius:9px;background:rgba(255,255,255,.04);font:400 13px/1.4 'PT Serif',serif;color:var(--muted)}.lesson-detail .flow-grid b{display:block;margin-bottom:4px;color:var(--gold-soft);font:500 10px 'DM Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase}.lesson-detail details{margin-top:20px;padding:14px 0}.lesson-detail details summary{font-size:20px}.lesson-detail details p{font-size:15px;margin-top:12px}.codex-sections{display:grid;gap:6px}.codex-sections p{margin:0}.stable-link{display:inline-flex;align-items:center;gap:8px;margin-top:18px;color:var(--gold-soft);font-size:12px;letter-spacing:.08em;text-decoration:none}.stable-link:hover{color:var(--white)}
   </style>
 </head>
 <body>
@@ -106,7 +107,7 @@
             <div class="family-tabs" role="tablist" aria-label="Familias del mazo"><button class="active" data-family="all">Todas</button><button data-family="principios">Principios</button><button data-family="guardianes">Guardianes</button><button data-family="elementos">Elementos</button></div>
             <div class="lesson-grid" id="lessonGrid"></div>
           </div>
-          <aside class="lesson-detail" id="lessonDetail" aria-live="polite"><div class="detail-kicker">Ficha de estudio</div><h3>Elegí una carta</h3><p>Empezá por observar la escena: ¿qué está haciendo esta energía antes de intentar interpretarla?</p><div class="lesson-question">La primera lectura no responde. Formula una pregunta más precisa.</div></aside>
+          <aside class="lesson-detail" id="lessonDetail" aria-live="polite"><div class="detail-kicker">Mini guía</div><h3>Elegí una carta</h3><p>Empezá por observar la escena: ¿qué está haciendo esta energía antes de intentar interpretarla?</p><div class="lesson-question">La primera lectura no responde. Formula una pregunta más precisa.</div></aside>
         </div>
       </div>
     </section>
@@ -177,7 +178,6 @@
       {id:'III',name:'Khemia',family:'confirmadas',role:'Carta confirmada',meaning:'Significado pendiente de cargar desde la base maestra.',question:'¿Qué transformación está en curso?',practice:'señalá la mezcla de fuerzas que la produce.',image:'assets/III_INF_KHEMIA.png'},
       {id:'G-FRACTUM',name:'Fractum',family:'guardianes',role:'Guardián · Correspondencia',meaning:'Cada fragmento refleja el todo: lo que ocurre en un plano deja una forma visible en los demás.',question:'¿Qué patrón se repite entre lo pequeño y lo grande?',practice:'buscá una correspondencia concreta antes de sacar conclusiones.',image:'assets/ET_INF_FRACTUM.jpg'},
       {id:'G-EMANATUS',name:'Emanatus',family:'guardianes',role:'Guardián · Mentalismo',meaning:'Todo lo que aparece en la experiencia primero fue pensado, imaginado o sostenido por una mente.',question:'¿Qué idea está dando forma a esta escena?',practice:'distinguí el pensamiento que crea del pensamiento que limita.',image:'assets/ET_INF_EMANATUS.jpg'},
-      {id:'G-TEMPUS',name:'Tempus',family:'guardianes',role:'Guardián · Ritmo',meaning:'Todo avanza y retrocede en ciclos; reconocer el pulso permite acompañar el momento justo.',question:'¿En qué fase del ciclo estás?',practice:'nombrá qué está creciendo, qué está descendiendo y qué pide pausa.',image:'assets/ET_INF_TEMPUS.jpg'},
       {id:'G-REACTUS',name:'Reactus',family:'guardianes',role:'Guardián · Causa y efecto',meaning:'Cada acción deja una huella y cada huella genera un eco, aunque el vínculo no sea inmediato ni lineal.',question:'¿Qué causa anterior sigue actuando en el presente?',practice:'seguí la cadena de consecuencias sin buscar un único comienzo.',image:'assets/ET_INF_REACTUS.jpg'},
       {id:'G-PULSUS',name:'Pulsus',family:'guardianes',role:'Guardián · Vibración',meaning:'Nada está completamente quieto: todo emite, recibe y responde a un impulso.',question:'¿Qué vibración está moviendo la situación?',practice:'observá qué cambia cuando modificás tu propio pulso.',image:'assets/ET_INF_PULSUS.jpg'},
       {id:'G-POLARIS',name:'Polaris',family:'guardianes',role:'Guardián · Polaridad',meaning:'Los opuestos son grados de una misma naturaleza; el movimiento está en encontrar el punto de relación.',question:'¿Entre qué dos polos se organiza la escena?',practice:'describí ambos extremos y buscá el puente que los conecta.',image:'assets/ET_INF_POLARIS.jpg'},
@@ -187,6 +187,30 @@
       {id:'E-AER',name:'Aer',family:'elementos',role:'Elemento · Aire',meaning:'Mente, lenguaje y comunicación: lo intangible que organiza y transmite.',question:'¿Qué idea necesita ser expresada?',practice:'poné en palabras simples lo que hasta ahora era difuso.',image:'assets/ET_INF_AER.jpg'},
       {id:'E-FIAMMA',name:'Fiamma',family:'elementos',role:'Elemento · Fuego',meaning:'Impulso, deseo y acción: la chispa que inicia el movimiento.',question:'¿Qué quiere ponerse en marcha?',practice:'elegí una acción pequeña que encienda el proceso.',image:'assets/ET_INF_FIAMMA.jpg'}
     ];
+    // Una sola fuente de datos alimenta la tarjeta rápida, el Códex ampliado y los enlaces QR.
+    const slugify=value=>value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+    lessons.forEach(card=>{
+      card.slug=card.slug||slugify(card.name);
+      card.summary=card.summary||card.meaning;
+      card.keywords=card.keywords||[card.role.split('·').pop().trim(), 'observación', 'pregunta'];
+      card.flow=card.flow||'La energía se expresa cuando la observás sin forzar una respuesta.';
+      card.blocked=card.blocked||'Se bloquea cuando la convertís en una etiqueta fija o intentás apurarla.';
+      card.correspondences=card.correspondences||'Correspondencia en revisión dentro de la base maestra del Códex.';
+      card.codex=card.codex||{};
+    });
+    const audens=lessons.find(card=>card.id==='000');
+    if(audens){
+      audens.name='Audens Viator';
+      audens.slug='audens-viator';
+      audens.role='Essentor · El que se atreve a avanzar';
+      audens.summary='El primer paso que aparece antes de tener mapa: impulso, riesgo y confianza en movimiento.';
+      audens.meaning='Audens Viator no trae una respuesta cerrada. Señala el momento en que una persona reconoce el umbral y decide avanzar aunque todavía no pueda controlar el resultado. Puede representar deseo, valentía o la necesidad de iniciar un viaje propio.';
+      audens.keywords=['umbral','coraje','movimiento','iniciativa'];
+      audens.flow='Avanzar con presencia: elegir un gesto posible y dejar que el camino responda.';
+      audens.blocked='Esperar certeza total, confundir impulso con fuga o quedarse mirando el umbral.';
+      audens.correspondences='Principio: voluntad en acto · Elemento: fuego naciente · Operación: calcinatio · Macrofase: inicio · Regente: el caminante.';
+      audens.codex={identity:'Essentor del umbral y del viaje iniciado. Su fuerza aparece cuando todavía no hay garantías, pero sí una dirección que pide ser probada.',symbols:'El bastón marca apoyo y continuidad; la luz señala el próximo paso; el paisaje abierto recuerda que el sentido se construye caminando.',operation:'Calcinatio · Macrofase de inicio: quema la indecisión suficiente para liberar una acción concreta.',principle:'Mentalismo aplicado a la voluntad: una imagen interior se vuelve dirección cuando encuentra un gesto en el mundo.',element:'Fuego',regent:'El viajero',ordo:'Ordo de los Iniciadores',legacy:'Deja como legado la capacidad de comenzar sin exigirle al comienzo que sea definitivo.',self:'¿Qué paso puedo dar hoy sin pedirle al futuro que me garantice el resultado?',relations:'Con Lethe: suelta el mapa viejo. Con Aletheia: reconoce la dirección verdadera. Con Metabole: transforma el impulso en proceso.',custodians:'Puede dialogar con Custodios de umbral, fuego y camino: preguntan qué protege el paso y qué lo vuelve sostenible.',combinations:'Con Terra: comenzar con base. Con Pulsus: escuchar el momento. Con Polaris: elegir entre dos direcciones sin negar ninguna.',uses:'Tirada de inicio, lectura de decisión, práctica de una semana y apertura de un nuevo ciclo.',future:'Este espacio queda preparado para notas del Códex, audio, ejemplos de lecturas y correspondencias que se incorporen más adelante.'};
+    }
     const lessonGrid=document.getElementById('lessonGrid');
     const lessonDetail=document.getElementById('lessonDetail');
     function renderLessons(family='all'){
@@ -196,13 +220,20 @@
       lessonGrid.querySelectorAll('[data-lesson]').forEach(button=>button.addEventListener('click',()=>selectLesson(button.dataset.lesson)));
       if(visible[0]) selectLesson(visible[0].id);
     }
-    function selectLesson(id){
-      const card=lessons.find(item=>item.id===id); if(!card) return;
-      lessonGrid.querySelectorAll('[data-lesson]').forEach(button=>button.classList.toggle('selected',button.dataset.lesson===id));
-      lessonDetail.innerHTML=`<div class="detail-kicker">${card.family} · ficha de estudio</div><h3>${card.name}</h3><p><strong>${card.role}</strong></p><p>${card.meaning}</p><div class="lesson-question">${card.question}</div><div class="lesson-action">Práctica · ${card.practice}</div>`;
+    function selectLesson(id,updateUrl=true){
+      const card=lessons.find(item=>item.id===id||item.slug===id); if(!card) return;
+      lessonGrid.querySelectorAll('[data-lesson]').forEach(button=>button.classList.toggle('selected',button.dataset.lesson===card.id));
+      const c=card.codex||{};
+      const keywords=card.keywords.map(item=>`<span>${item}</span>`).join('');
+      const expanded=[['Historia / identidad',c.identity],['Símbolos y lectura simbólica',c.symbols],['Operación alquímica y macrofase',c.operation],['Principio',c.principle],['Elemento',c.element],['Regente',c.regent],['Ordo y legado',`${c.ordo||'En desarrollo'}. ${c.legacy||''}`],['Preguntas de autoconsulta',c.self],['Relaciones con Lethe, Aletheia y Metabole',c.relations],['Relaciones con Custodios',c.custodians],['Combinaciones y lecturas relacionales',c.combinations],['Tiradas o ejemplos de uso',c.uses],['Contenido futuro',c.future]].filter(([,text])=>text).map(([title,text])=>`<details><summary>${title}</summary><p>${text}</p></details>`).join('');
+      const url=new URL(window.location.href); url.searchParams.set('c',card.slug);
+      if(updateUrl) window.history.replaceState({},'',url);
+      lessonDetail.innerHTML=`<div class="detail-kicker">Mini guía · ${card.family}</div><div class="mini-guide"><img src="${card.image}" alt="Carta ${card.name}"><div><h4>${card.name}</h4><p>${card.role}</p><a class="stable-link" href="${url.pathname}?c=${card.slug}#aprendizaje">Abrir enlace estable ↗</a></div></div><p>${card.summary}</p><span class="guide-label">Palabras clave</span><div class="keyword-list">${keywords}</div><span class="guide-label">Energía</span><div class="flow-grid"><div><b>Fluida</b>${card.flow}</div><div><b>Bloqueada</b>${card.blocked}</div></div><span class="guide-label">Correspondencias principales</span><p>${card.correspondences}</p><div class="lesson-question">${card.question}</div><div class="lesson-action">Práctica · ${card.practice}</div><details open><summary>Ampliar en el Códex</summary><div class="codex-sections">${expanded||'<p>Esta ficha está preparada para recibir el contenido ampliado del Códex.</p>'}</div></details>`;
     }
     document.querySelectorAll('[data-family]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-family]').forEach(item=>item.classList.remove('active'));button.classList.add('active');renderLessons(button.dataset.family)}));
     renderLessons();
+    const requestedCard=new URLSearchParams(window.location.search).get('c');
+    if(requestedCard&&lessons.some(card=>card.slug===requestedCard||card.id===requestedCard)) selectLesson(requestedCard,false);
     const spreadSlots=[{label:'Lo que fue',key:'past'},{label:'Lo que está siendo',key:'present'},{label:'Lo posible',key:'future'}];
     const spreadReadings={past:'Trae la huella que todavía organiza la escena.',present:'Muestra la energía que está pidiendo atención ahora.',future:'Abre una posibilidad: no promete, invita a participar.'};
     const practiceUsedIds=new Set();
