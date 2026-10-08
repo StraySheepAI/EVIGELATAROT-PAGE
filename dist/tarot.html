@@ -37,6 +37,7 @@
     .drop-slot.filled p{margin:8px 0 0;color:var(--muted);font:400 12px/1.35 'PT Serif',serif}.drop-slot.filled em{display:block;margin-top:8px;color:var(--paper);font:italic 12px/1.35 'PT Serif',serif}.spread-practice{margin-top:24px;padding:22px;border:1px solid rgba(210,170,105,.28);border-radius:16px;background:rgba(8,2,14,.42)}.spread-practice h4{margin:0 0 8px;color:var(--paper);font:500 26px 'Tann Headline','Bodoni Moda','Cormorant Garamond',serif}.spread-practice p{margin:0 0 14px;color:var(--muted);font:400 15px/1.5 'PT Serif',serif}.spread-practice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.spread-practice-grid label{color:var(--gold-soft);font-size:10px;letter-spacing:.12em;text-transform:uppercase}.spread-practice-grid textarea{display:block;width:100%;min-height:84px;margin-top:7px;padding:10px;border:1px solid rgba(210,170,105,.32);border-radius:10px;resize:vertical;background:rgba(255,255,255,.04);color:var(--paper);font:400 14px/1.4 'PT Serif',serif}.spread-practice-note{margin-top:12px;color:var(--gold-soft);font-size:12px}
     @media(max-width:540px){.drop-slots{grid-template-columns:1fr}.drop-slot{min-height:120px}.spread-practice-grid{grid-template-columns:1fr}}
     .lesson-detail .mini-guide{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:start;margin:14px 0 18px}.lesson-detail .mini-guide img{width:96px;aspect-ratio:2/3;object-fit:cover;border-radius:9px;border:1px solid var(--gold);box-shadow:0 8px 20px rgba(0,0,0,.3)}.lesson-detail .mini-guide h4{margin:0 0 6px;font:500 22px/1.05 'Cinzel',serif;color:var(--paper)}.lesson-detail .mini-guide p{margin:0;font-size:14px;line-height:1.45}.lesson-detail .guide-label{display:block;margin:14px 0 6px;color:var(--gold-soft);font-size:10px;letter-spacing:.16em;text-transform:uppercase}.lesson-detail .keyword-list{display:flex;flex-wrap:wrap;gap:6px;margin:0}.lesson-detail .keyword-list span{padding:5px 8px;border:1px solid rgba(208,109,242,.35);border-radius:999px;color:var(--violet-soft);font-size:11px}.lesson-detail .flow-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.lesson-detail .flow-grid div{padding:10px;border-radius:9px;background:rgba(255,255,255,.04);font:400 13px/1.4 'PT Serif',serif;color:var(--muted)}.lesson-detail .flow-grid b{display:block;margin-bottom:4px;color:var(--gold-soft);font:500 10px 'DM Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase}.lesson-detail details{margin-top:20px;padding:14px 0}.lesson-detail details summary{font-size:20px}.lesson-detail details p{font-size:15px;margin-top:12px}.codex-sections{display:grid;gap:6px}.codex-sections p{margin:0}.stable-link{display:inline-flex;align-items:center;gap:8px;margin-top:18px;color:var(--gold-soft);font-size:12px;letter-spacing:.08em;text-decoration:none}.stable-link:hover{color:var(--white)}
+    .draw-card{cursor:pointer;transform-style:preserve-3d;transition:transform .6s ease,box-shadow .35s}.draw-card.draw-hidden:hover{transform:translateY(-5px) scale(1.02);box-shadow:0 0 0 3px rgba(210,170,105,.22),0 18px 38px rgba(0,0,0,.4)}
   </style>
 </head>
 <body>
@@ -104,7 +105,7 @@
         <div class="section-head"><div class="eyebrow">Aula virtual EVIGILA</div><h2>Aprendé mirando.<br><em>Después, tirá.</em></h2><p>Elegí una familia, observá las cartas y abrí una ficha de estudio. Cada ficha combina imagen, función, pregunta guía y una pequeña práctica para llevar el símbolo a tu situación.</p></div>
         <div class="learning-studio">
           <div>
-            <div class="family-tabs" role="tablist" aria-label="Familias del mazo"><button class="active" data-family="all">Todas</button><button data-family="essentors">Essentors</button><button data-family="custodes">Custodes</button><button data-family="elementa">Elementa</button></div>
+            <div class="family-tabs" role="tablist" aria-label="Familias del mazo"><button class="active" data-family="all">Todos</button><button data-family="essentors">Essentors</button><button data-family="essentors-correspondencia">Essentors de correspondencia</button><button data-family="essentors-metalquimicos">Essentors metalquímicos</button><button data-family="custodes-principarium">Custodes principarium</button><button data-family="custodes-elementales">Custodes elementales</button></div>
             <div class="lesson-grid" id="lessonGrid"></div>
           </div>
           <aside class="lesson-detail" id="lessonDetail" aria-label="Mini guía de la carta seleccionada" aria-live="polite"><div class="detail-kicker">Mini guía</div><h3>Elegí una carta</h3><p>Empezá por observar la escena: ¿qué está haciendo esta energía antes de intentar interpretarla?</p><div class="lesson-question">La primera lectura no responde. Formula una pregunta más precisa.</div></aside>
@@ -187,12 +188,17 @@
       {id:'E-AQUA',name:'Unda',family:'elementos',role:'Elemento · Agua',meaning:'Emoción, sensibilidad y movimiento interior: lo que fluye y transforma desde adentro.',question:'¿Qué emoción está pidiendo circular?',practice:'nombrá la emoción sin juzgarla y dejá que indique una dirección.',image:'assets/ET_INF_UNDA.png'},
       {id:'E-AER',name:'Aura',family:'elementos',role:'Elemento · Aire',meaning:'Mente, lenguaje y comunicación: lo intangible que organiza y transmite.',question:'¿Qué idea necesita ser expresada?',practice:'poné en palabras simples lo que hasta ahora era difuso.',image:'assets/ET_INF_AURA.png'},
       {id:'E-FIAMMA',name:'Flamma',family:'elementos',role:'Elemento · Fuego',meaning:'Impulso, deseo y acción: la chispa que inicia el movimiento.',question:'¿Qué quiere ponerse en marcha?',practice:'elegí una acción pequeña que encienda el proceso.',image:'assets/ET_INF_FLAMMA.png'},
+      {id:'E-TEMPUS',name:'Tempus',family:'custodes',role:'Custos · Principarium · Tiempo',meaning:'El tiempo como fuerza viva: ritmo, espera y maduración de aquello que todavía está tomando forma.',question:'¿Qué necesita tiempo en lugar de presión?',practice:'distinguí entre esperar con atención y postergar por miedo.',image:'assets/ET_INF_TEMPUS.png'},
       {id:'SIGILIUM',name:'Sigilium',family:'dorso',role:'Sello · Dorso del mazo',meaning:'El sello que reúne y protege el campo del mazo antes de abrir una lectura.',question:'¿Qué intención querés sellar antes de comenzar?',practice:'formulá una intención breve para tu tirada.',image:'assets/SIGILIUM.png'}
     ];
     // Una sola fuente de datos alimenta la tarjeta rápida, el Códex ampliado y los enlaces QR.
     const slugify=value=>value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
     lessons.forEach(card=>{
-      if(card.family==='confirmadas') card.family='essentors';
+      if(card.family==='confirmadas') { card.family='essentors'; card.subfamily=['016','017','018','019','020','021','E-TEMPUS'].includes(card.id)?'essentors-metalquimicos':'essentors-correspondencia'; }
+      if(card.family==='custodes') card.family='custodes-principarium';
+      if(card.family==='elementos') card.family='custodes-elementales';
+      if(card.family==='elementa') card.family='custodes-elementales';
+      if(['I','II','III'].includes(card.id)) card.family='custodes-principarium';
       card.slug=card.slug||slugify(card.name);
       card.summary=card.summary||card.meaning;
       card.keywords=card.keywords||[card.role.split('·').pop().trim(), 'observación', 'pregunta'];
@@ -217,8 +223,7 @@
     const lessonGrid=document.getElementById('lessonGrid');
     const lessonDetail=document.getElementById('lessonDetail');
     function renderLessons(family='all'){
-      const hasFamily=lessons.some(card=>card.family===family);
-      const visible=family==='all'||!hasFamily?lessons:lessons.filter(card=>card.family===family);
+      const visible=family==='all'?lessons:family.startsWith('essentors-')?lessons.filter(card=>card.subfamily===family):lessons.filter(card=>card.family===family);
       lessonGrid.innerHTML=visible.map((card,index)=>`<button class="lesson-card${index===0?' selected':''}" data-lesson="${card.id}"><img src="${card.image}" alt="Carta ${card.name}"><b>${card.name}</b><span>${card.role}</span></button>`).join('');
       lessonGrid.querySelectorAll('[data-lesson]').forEach(button=>button.addEventListener('click',()=>selectLesson(button.dataset.lesson)));
       if(visible[0]) selectLesson(visible[0].id);
@@ -244,9 +249,9 @@
     function drawSpread(){
       if(!readingLessons.length){document.getElementById('drawnSpread').innerHTML='<div class="lesson-empty">La tirada se habilita cuando estén registradas las cartas confirmadas del proyecto correcto.</div>';document.getElementById('spreadMessage').innerHTML='<strong>Base limpia</strong><br>No se muestran cartas de otros proyectos ni se generan duplicados.';return;}
       const pool=[...readingLessons].sort(()=>Math.random()-.5).slice(0,Math.min(3,readingLessons.length));
-      document.getElementById('drawnSpread').innerHTML=pool.map((card,index)=>{const reversed=Math.random()>.62;return `<article class="draw-slot"><div class="draw-slot-label">${spreadSlots[index].label}</div><div class="draw-card${reversed?' reversed':''}"><img src="${card.image}" alt="${card.name}${reversed?' invertida':''}"></div><div class="draw-slot-name">${card.name}${reversed?' · invertida':''}</div><div class="draw-slot-role">${card.role}</div><div class="draw-slot-reading">${reversed?'La energía aparece hacia adentro: ':''}${spreadReadings[spreadSlots[index].key]}</div></article>`}).join('');
-      const names=pool.map(card=>card.name).join(' · ');
-      document.getElementById('spreadMessage').innerHTML=`<strong>Mensaje de la tirada</strong><br><b>${names}</b> forman una secuencia. Observá qué cambia entre la huella, el presente y la posibilidad, y elegí una acción pequeña que la ponga en movimiento.`;
+      document.getElementById('drawnSpread').innerHTML=pool.map((card,index)=>`<article class="draw-slot"><div class="draw-slot-label">${spreadSlots[index].label}</div><div class="draw-card draw-hidden" data-reveal="${card.id}" role="button" tabindex="0" aria-label="Revelar carta de ${spreadSlots[index].label}"><img src="assets/CONTRACARA.png" alt="Dorso del mazo · hacer clic para revelar"></div><div class="draw-slot-name">Carta boca abajo</div><div class="draw-slot-role">Hacé clic para revelar</div><div class="draw-slot-reading">La carta permanece en secreto hasta que la elijas.</div></article>`).join('');
+      document.getElementById('spreadMessage').innerHTML='<strong>Tu tirada está preparada</strong><br>Elegí una posición y hacé clic en el dorso para revelar una carta. Podés abrirlas una por una y leer qué trae cada momento.';
+      document.querySelectorAll('[data-reveal]').forEach((el,index)=>{const reveal=()=>{if(el.classList.contains('revealed')) return;const card=pool[index];const reversed=Math.random()>.62;el.classList.remove('draw-hidden');el.classList.add('revealed');if(reversed) el.classList.add('reversed');el.querySelector('img').src=card.image;el.querySelector('img').alt=`${card.name}${reversed?' invertida':''}`;const slot=el.closest('.draw-slot');slot.querySelector('.draw-slot-name').textContent=`${card.name}${reversed?' · invertida':''}`;slot.querySelector('.draw-slot-role').textContent=card.role;slot.querySelector('.draw-slot-reading').textContent=`${reversed?'Hacia adentro · ':''}${card.meaning} ${spreadReadings[spreadSlots[index].key]}`;el.setAttribute('aria-label',`Carta revelada: ${card.name}`);};el.addEventListener('click',reveal);el.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();reveal();}});});
     }
     document.getElementById('newSpread').addEventListener('click',drawSpread);
     drawSpread();
