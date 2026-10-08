@@ -104,7 +104,7 @@
         <div class="section-head"><div class="eyebrow">Aula virtual EVIGILA</div><h2>Aprendé mirando.<br><em>Después, tirá.</em></h2><p>Elegí una familia, observá las cartas y abrí una ficha de estudio. Cada ficha combina imagen, función, pregunta guía y una pequeña práctica para llevar el símbolo a tu situación.</p></div>
         <div class="learning-studio">
           <div>
-            <div class="family-tabs" role="tablist" aria-label="Familias del mazo"><button class="active" data-family="all">Todas</button><button data-family="principios">Principios</button><button data-family="guardianes">Guardianes</button><button data-family="elementos">Elementos</button></div>
+            <div class="family-tabs" role="tablist" aria-label="Familias del mazo"><button class="active" data-family="all">Todas</button><button data-family="essentors">Essentors</button><button data-family="custodes">Custodes</button><button data-family="elementa">Elementa</button></div>
             <div class="lesson-grid" id="lessonGrid"></div>
           </div>
           <aside class="lesson-detail" id="lessonDetail" aria-label="Mini guía de la carta seleccionada" aria-live="polite"><div class="detail-kicker">Mini guía</div><h3>Elegí una carta</h3><p>Empezá por observar la escena: ¿qué está haciendo esta energía antes de intentar interpretarla?</p><div class="lesson-question">La primera lectura no responde. Formula una pregunta más precisa.</div></aside>
@@ -192,6 +192,7 @@
     // Una sola fuente de datos alimenta la tarjeta rápida, el Códex ampliado y los enlaces QR.
     const slugify=value=>value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
     lessons.forEach(card=>{
+      if(card.family==='confirmadas') card.family='essentors';
       card.slug=card.slug||slugify(card.name);
       card.summary=card.summary||card.meaning;
       card.keywords=card.keywords||[card.role.split('·').pop().trim(), 'observación', 'pregunta'];
@@ -239,7 +240,7 @@
     const spreadSlots=[{label:'Lo que fue',key:'past'},{label:'Lo que está siendo',key:'present'},{label:'Lo posible',key:'future'}];
     const spreadReadings={past:'Trae la huella que todavía organiza la escena.',present:'Muestra la energía que está pidiendo atención ahora.',future:'Abre una posibilidad: no promete, invita a participar.'};
     const practiceUsedIds=new Set();
-    const readingLessons=lessons.filter(card=>card.family==='confirmadas');
+    const readingLessons=lessons.filter(card=>card.family==='essentors');
     function drawSpread(){
       if(!readingLessons.length){document.getElementById('drawnSpread').innerHTML='<div class="lesson-empty">La tirada se habilita cuando estén registradas las cartas confirmadas del proyecto correcto.</div>';document.getElementById('spreadMessage').innerHTML='<strong>Base limpia</strong><br>No se muestran cartas de otros proyectos ni se generan duplicados.';return;}
       const pool=[...readingLessons].sort(()=>Math.random()-.5).slice(0,Math.min(3,readingLessons.length));
