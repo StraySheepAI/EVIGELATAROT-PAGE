@@ -38,6 +38,8 @@
     @media(max-width:540px){.drop-slots{grid-template-columns:1fr}.drop-slot{min-height:120px}.spread-practice-grid{grid-template-columns:1fr}}
     .lesson-detail .mini-guide{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:start;margin:14px 0 18px}.lesson-detail .mini-guide img{width:96px;aspect-ratio:2/3;object-fit:cover;border-radius:9px;border:1px solid var(--gold);box-shadow:0 8px 20px rgba(0,0,0,.3)}.lesson-detail .mini-guide h4{margin:0 0 6px;font:500 22px/1.05 'Cinzel',serif;color:var(--paper)}.lesson-detail .mini-guide p{margin:0;font-size:14px;line-height:1.45}.lesson-detail .guide-label{display:block;margin:14px 0 6px;color:var(--gold-soft);font-size:10px;letter-spacing:.16em;text-transform:uppercase}.lesson-detail .keyword-list{display:flex;flex-wrap:wrap;gap:6px;margin:0}.lesson-detail .keyword-list span{padding:5px 8px;border:1px solid rgba(208,109,242,.35);border-radius:999px;color:var(--violet-soft);font-size:11px}.lesson-detail .flow-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.lesson-detail .flow-grid div{padding:10px;border-radius:9px;background:rgba(255,255,255,.04);font:400 13px/1.4 'PT Serif',serif;color:var(--muted)}.lesson-detail .flow-grid b{display:block;margin-bottom:4px;color:var(--gold-soft);font:500 10px 'DM Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase}.lesson-detail details{margin-top:20px;padding:14px 0}.lesson-detail details summary{font-size:20px}.lesson-detail details p{font-size:15px;margin-top:12px}.codex-sections{display:grid;gap:6px}.codex-sections p{margin:0}.stable-link{display:inline-flex;align-items:center;gap:8px;margin-top:18px;color:var(--gold-soft);font-size:12px;letter-spacing:.08em;text-decoration:none}.stable-link:hover{color:var(--white)}
     .draw-card{cursor:pointer;transform-style:preserve-3d;transition:transform .6s ease,box-shadow .35s}.draw-card.draw-hidden:hover{transform:translateY(-5px) scale(1.02);box-shadow:0 0 0 3px rgba(210,170,105,.22),0 18px 38px rgba(0,0,0,.4)}.draw-card.revealing{transform:rotateY(90deg)}
+    .access-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.access-card{padding:26px;border:1px solid rgba(210,170,105,.32);border-radius:20px;background:linear-gradient(150deg,rgba(42,16,65,.82),rgba(16,6,25,.82));min-height:250px;display:flex;flex-direction:column;align-items:flex-start}.access-card-featured{border-color:var(--gold);box-shadow:0 0 0 2px rgba(210,170,105,.12),var(--shadow)}.access-card h3{margin:14px 0 10px;color:var(--paper);font:500 30px/.98 'Tann Headline','Bodoni Moda','Cormorant Garamond',serif}.access-card p{margin:0 0 20px;color:var(--muted);font:400 16px/1.55 'PT Serif',serif}.access-card .btn{margin-top:auto}.access-unlock{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;margin-top:18px;padding:26px;border:1px solid rgba(208,109,242,.38);border-radius:20px;background:rgba(16,5,25,.7)}.access-unlock h3{margin:10px 0 8px;color:var(--paper);font:500 29px/.98 'Tann Headline','Bodoni Moda','Cormorant Garamond',serif}.access-unlock p{margin:0;color:var(--muted);font:400 15px/1.5 'PT Serif',serif}.access-unlock label{display:block;margin-bottom:8px;color:var(--gold-soft);font-size:11px;letter-spacing:.14em;text-transform:uppercase}.access-form-row{display:flex;gap:10px}.access-form-row input{min-width:0;flex:1;padding:13px 14px;border:1px solid rgba(210,170,105,.42);border-radius:999px;background:rgba(255,255,255,.05);color:var(--paper);font:500 14px 'DM Sans',sans-serif;outline:none}.access-form-row input:focus{border-color:var(--violet-bright);box-shadow:0 0 0 3px rgba(208,109,242,.14)}.access-status{min-height:1.4em;margin-top:10px!important;color:var(--gold-soft)!important;font-size:13px!important}
+    @media(max-width:850px){.access-grid{grid-template-columns:1fr}.access-unlock{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -48,7 +50,7 @@
       <div class="brand-copy">MPA · EVIGILA<span>Tarot de los Essentors</span></div>
     </a>
     <nav aria-label="Navegación de Tarot">
-      <a href="#codex">Códex</a><a href="#aprendizaje">Aprender</a><a href="#practica-juego">Jugar</a><a href="#tiradas">Tiradas</a><a href="#ediciones">Ediciones</a><a class="nav-cta" href="#contacto">Entrar al universo</a>
+      <a href="#codex">Códex</a><a href="#aprendizaje">Aprender</a><a href="#practica-juego">Jugar</a><a href="#tiradas">Tiradas</a><a href="#ediciones">Ediciones</a><a class="nav-cta" href="#universo">Entrar al universo</a>
     </nav>
   </header>
 
@@ -140,6 +142,18 @@
           <article class="entry product-card"><div class="tag">Edición de estudio</div><h3>Mazo + Códex</h3><p>El mazo, el libro completo y acceso digital al aula EVIGILA: correspondencias, prácticas, tiradas y recorrido de aprendizaje.</p><span class="tag">Para profundizar y jugar</span></article>
         </div>
         <p class="spell-line" style="margin-top:26px;text-align:center"><span>✦</span> próximamente: muestras del mazo impreso y pedidos bajo demanda <span>✦</span></p>
+      </div>
+    </section>
+
+    <section class="section access-section" id="universo">
+      <div class="wrap">
+        <div class="section-head"><div class="eyebrow">Tu puerta de entrada</div><h2>Una caja.<br><em>Más de un universo.</em></h2><p>El QR de tu Mini Códex te trae hasta acá. Si tu caja tiene un código, podés desbloquear el recorrido completo de EVIGILA dentro de Magia para Atrevidos.</p></div>
+        <div class="access-grid">
+          <article class="access-card"><div class="tag">Acceso QR · Público</div><h3>Conocer EVIGILA</h3><p>Explorá las cartas, aprendé las familias y probá una tirada pública de muestra.</p><a class="btn ghost" href="#aprendizaje">Empezar la Mini Guía →</a></article>
+          <article class="access-card access-card-featured"><div class="tag">Código de caja</div><h3>Entrar al universo</h3><p>Activá tu código para abrir las Tabulas, el laboratorio de tiradas y el recorrido de aprendizaje.</p><a class="btn primary" href="#access-code">Activar mi código →</a></article>
+          <article class="access-card"><div class="tag">Edición de estudio</div><h3>Mazo + Códex</h3><p>Accedé a las historias, capas alquímicas, prácticas avanzadas y contenido ampliado del Códex.</p><a class="btn ghost" href="https://rociodopazo.com/#/obra/magia-para-atrevidos" target="_blank" rel="noreferrer">Conocer Magia para Atrevidos ↗</a></article>
+        </div>
+        <div class="access-unlock" id="access-code"><div><div class="eyebrow">Código de activación</div><h3>¿Tenés una etiqueta en tu caja?</h3><p>Escribí el código tal como aparece para guardar tu puerta de entrada en este dispositivo.</p></div><form id="accessForm"><label for="accessInput">Código de caja</label><div class="access-form-row"><input id="accessInput" name="code" autocomplete="off" placeholder="EVIGILA-••••" aria-describedby="accessStatus"><button class="btn primary" type="submit">Activar código</button></div><p class="access-status" id="accessStatus" role="status" aria-live="polite"></p></form></div>
       </div>
     </section>
 
@@ -281,6 +295,12 @@
     deckCard.addEventListener('click',()=>deckCard.dataset.ready='true');
     document.querySelectorAll('[data-mode]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-mode]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('modeCopy').textContent=copy[btn.dataset.mode]}));
     document.querySelectorAll('[data-card]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-card]').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');const card=cards[btn.dataset.card];document.getElementById('practiceResult').innerHTML='<strong>'+card.name+'</strong><br>'+card.text}));
+    const accessForm=document.getElementById('accessForm');
+    const accessInput=document.getElementById('accessInput');
+    const accessStatus=document.getElementById('accessStatus');
+    const storedAccess=localStorage.getItem('evigila-access-code');
+    if(storedAccess){accessInput.value=storedAccess;accessStatus.textContent='Código activo en este dispositivo ✦';}
+    accessForm.addEventListener('submit',event=>{event.preventDefault();const code=accessInput.value.trim().toUpperCase();if(!/^[A-Z0-9][A-Z0-9-]{4,}$/.test(code)){accessStatus.textContent='Escribí el código de la etiqueta para activar tu acceso.';return;}localStorage.setItem('evigila-access-code',code);accessStatus.textContent='Código recibido. Tu puerta de entrada quedó guardada ✦';document.getElementById('tiradas').scrollIntoView({behavior:'smooth'});});
   </script>
 </body>
 </html>
