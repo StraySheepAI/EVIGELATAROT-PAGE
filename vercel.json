@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/", "destination": "/tarot.html" },
+    { "source": "/", "destination": "/presentacion.html" },
     { "source": "/tarot", "destination": "/tarot.html" }
   ]
 }
