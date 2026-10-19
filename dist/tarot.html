@@ -283,7 +283,7 @@
     document.querySelectorAll('[data-family]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-family]').forEach(item=>item.classList.remove('active'));button.classList.add('active');renderLessons(button.dataset.family)}));
     renderLessons();
     const requestedCard=new URLSearchParams(window.location.search).get('c');
-    const accessEntryRequested=window.location.hash==='#access-code';
+    const accessEntryRequested=window.location.hash==='#access-code'||new URLSearchParams(window.location.search).get('access')==='1';
     if(requestedCard&&lessons.some(card=>card.slug===requestedCard||card.id===requestedCard)) { selectLesson(requestedCard,!accessEntryRequested); setTimeout(()=>document.getElementById(accessEntryRequested?'access-code':'lessonDetail').scrollIntoView({block:'start'}),80); }
     const spreadSlots=[{label:'Lo que ya no es',key:'past'},{label:'Lo que es',key:'present'},{label:'Lo que puede ser',key:'future'}];
     const spreadReadings={past:'Muestra qué forma dejó de organizar la escena.',present:'Muestra la energía que está pidiendo atención ahora.',future:'Abre una posibilidad: no promete, invita a participar.'};
