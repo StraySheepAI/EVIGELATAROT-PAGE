@@ -48,8 +48,30 @@
     .eyebrow,.spell-line,.draw-slot-label,.draw-slot-role{background:linear-gradient(105deg,#9a733b,#d0ad69 48%,#a57d42);-webkit-background-clip:text;background-clip:text;color:transparent}
     .btn.primary,.spread-button{background:linear-gradient(105deg,#9a743e,#c5a261 50%,#97713b);box-shadow:inset 0 1px rgba(255,228,165,.28),0 10px 28px rgba(94,62,28,.2)}
   </style>
+  <style>
+    /* La portada pública comparte la misma base visual, pero reserva el aula y el código para compradores. */
+    body.public-mode #practica,
+    body.public-mode #practica-juego,
+    body.public-mode #aprendizaje,
+    body.public-mode #leyendas,
+    body.public-mode #universo{display:none}
+    body.public-mode nav a[href="#aprendizaje"],
+    body.public-mode nav a[href="#practica-juego"],
+    body.public-mode nav a[href="#universo"]{display:none}
+    body.public-mode #codex .entry a[href="#leyendas"],
+    body.public-mode #codex .entry a[href="#practica"]{display:none}
+    body.public-mode #codex .entry p{min-height:78px}
+  </style>
 </head>
 <body>
+  <script>
+    // Sin código, la ruta raíz es la presentación pública. El hash de activación conserva el aula completa.
+    (()=>{
+      const buyerMode=window.location.hash==='#access-code'||Boolean(localStorage.getItem('evigila-access-code'));
+      document.body.classList.toggle('buyer-mode',buyerMode);
+      document.body.classList.toggle('public-mode',!buyerMode);
+    })();
+  </script>
   <div class="page-glow"></div>
   <header>
     <a class="brand" href="index.html" aria-label="Volver a MPA">
@@ -67,7 +89,7 @@
         <div class="eyebrow">Un sistema simbólico para mirar en movimiento</div>
         <h1>No es un Tarot que predice.<br><em>Es un Tarot que despierta.</em></h1>
         <p>EVIGILA es la primera expresión de la misión de MPA: una línea de vigilia para sostener la atención. No se trata de despertar una sola vez, sino de volver a mirar antes de dormirse por completo. El Tarot de los Essentors es su primera puerta; el universo EVIGILA continúa más allá de las cartas.</p>
-        <div class="hero-actions"><a class="btn primary" href="#codex">Entrar al códex →</a><a class="btn ghost" href="#practica">Quiero practicar</a></div><div class="spell-line"><span>✦</span> observar · nombrar · mover · transformar <span>✦</span></div>
+        <div class="hero-actions"><a class="btn primary" href="#codex">Entrar al códex →</a><a class="btn ghost" href="#tiradas">Ver una tirada</a></div><div class="spell-line"><span>✦</span> observar · nombrar · mover · transformar <span>✦</span></div>
       </div>
       <div class="portal" aria-label="Portal visual del Tarot EVIGILA">
         <div class="portal-label">MPA Tarot · Bloque IV</div><div class="orbit"></div>
@@ -78,7 +100,7 @@
 
     <section class="section light" id="codex">
       <div class="wrap">
-        <div class="section-head"><div class="eyebrow" style="color:#8f5c68">Dos formas de entrar</div><h2>Aprender la carta.<br><em>Usarla en la tirada.</em></h2><p>La guía te acompaña antes, durante y después de una lectura: primero construís criterio; después probás cómo se mueve el símbolo en una situación concreta.</p></div>
+        <div class="section-head"><div class="eyebrow" style="color:#8f5c68">Dos formas de entrar</div><h2>Aprender la carta.<br><em>Usarla en la tirada.</em></h2><p>La guía te acompaña antes, durante y después de una lectura: primero reconocés el universo; después probás cómo se mueve el símbolo en una situación concreta.</p></div>
         <div class="entry-grid">
           <article class="entry"><div class="tag">01 · Estudio</div><h3>Leer el lenguaje</h3><p>Conocé los Essentors, sus órdenes, sus tensiones y los símbolos que hacen que una carta pueda leerse de más de una manera.</p><a class="btn ghost" href="#leyendas" style="color:#6f258c;border-color:#9b668f">Ver las leyendas ↓</a></article>
           <article class="entry"><div class="tag">02 · Práctica</div><h3>Probar la energía</h3><p>Elegí una carta, ubicála en una posición y observá qué cambia cuando cambia la pregunta. La interpretación se construye; no se recibe cerrada.</p><a class="btn ghost" href="#practica" style="color:#6f258c;border-color:#9b668f">Abrir una tirada ↓</a></article>
@@ -334,6 +356,13 @@
     const storedAccess=localStorage.getItem('evigila-access-code');
     if(storedAccess){accessInput.value=storedAccess;accessStatus.textContent='Código activo en este dispositivo ✦';}
     accessForm.addEventListener('submit',event=>{event.preventDefault();const code=accessInput.value.trim().toUpperCase();if(!/^[A-Z0-9][A-Z0-9-]{4,}$/.test(code)){accessStatus.textContent='Escribí el código de la etiqueta para activar tu acceso.';return;}localStorage.setItem('evigila-access-code',code);accessStatus.textContent='Código recibido. Tu puerta de entrada quedó guardada ✦';document.getElementById('tiradas').scrollIntoView({behavior:'smooth'});});
+    if(document.body.classList.contains('public-mode')){
+      const publicLinks=document.querySelectorAll('#codex .entry a');
+      if(publicLinks[0]){publicLinks[0].href='#ordenes';publicLinks[0].textContent='Conocer los órdenes ↓';publicLinks[0].style.display='inline-flex';}
+      if(publicLinks[1]){publicLinks[1].href='#tiradas';publicLinks[1].textContent='Ver una tirada ↓';publicLinks[1].style.display='inline-flex';}
+      const cta=document.querySelector('nav .nav-cta');
+      if(cta){cta.href='#ediciones';cta.textContent='Elegí tu puerta de entrada';}
+    }
   </script>
 </body>
 </html>
