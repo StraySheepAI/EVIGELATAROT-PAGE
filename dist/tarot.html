@@ -302,7 +302,8 @@
     if(requestedCard&&lessons.some(card=>card.slug===requestedCard||card.id===requestedCard)) { selectLesson(requestedCard,!accessEntryRequested); setTimeout(()=>document.getElementById(accessEntryRequested?'access-code':'lessonDetail').scrollIntoView({block:'start'}),80); }
     const spreadSlots=[{label:'Lo que ya no es',key:'past'},{label:'Lo que es',key:'present'},{label:'Lo que puede ser',key:'future'}];
     const spreadReadings={past:'Acá muestra qué forma, hábito o lectura ya no organiza la escena.',present:'Hoy señala qué fuerza está actuando y qué pide una decisión consciente.',future:'Si seguís esa dirección, abre una posibilidad concreta: no promete, pero muestra qué puede empezar a tomar forma.'};
-    const cardMeaning=card=>card.meaning;
+    // En cada carta mostramos un resumen parejo; la profundidad queda reservada para la integración.
+    const cardMeaning=card=>card.summary||card.meaning;
     const dictumFor=card=>card.codex&&card.codex.operation?card.codex.operation:'';
     const interpretCard=(card,index,reversed)=>{const orientation=reversed?'Lectura invertida. ':'';const position=spreadSlots[index].key;return orientation+spreadReadings[position]+' '+cardMeaning(card)+' Pregunta: '+card.question+' Práctica: '+card.practice};
     const practiceUsedIds=new Set();
