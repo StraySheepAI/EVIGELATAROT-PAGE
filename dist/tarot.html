@@ -244,16 +244,16 @@
       {id:'G-TRINITAS',name:'Trinitas',family:'custodes',role:'Custodes de principio · Género / Generación',meaning:'Tres fuerzas pueden formar una configuración nueva cuando cada una ocupa su lugar.',question:'¿Qué tercera vía aparece entre estas fuerzas?',practice:'nombrá las tres partes y observá qué relación nueva producen.',image:'assets/ET_INF_TRINITAS_CUSTOS.png'},
       {id:'E-TERRA',name:'Terra',family:'elementa',role:'Elementum · Tierra',meaning:'Materialización, construcción y cimientos: aquello que toma forma y puede sostenerse.',question:'¿Qué necesita echar raíces?',practice:'convertí una intención en un paso concreto y verificable.',image:'assets/ET_INF_TERRA.jpg'},
       {id:'E-AETHER',name:'Aether',family:'elementa',role:'Elementum · Éter',meaning:'El campo sutil que conecta, integra y da sentido a las demás fuerzas.',question:'¿Qué vínculo invisible reúne las partes?',practice:'dibujá la red que sostiene lo que estás viendo.',image:'assets/ET_INF_AETHER.jpg'},
-      {id:'E-AQUA',name:'Unda',family:'elementa',role:'Elementum · Agua',meaning:'Emoción, sensibilidad y movimiento interior: lo que fluye y transforma desde adentro.',question:'¿Qué emoción está pidiendo circular?',practice:'nombrá la emoción sin juzgarla y dejá que indique una dirección.',image:'assets/ET_INF_UNDA.png'},
-      {id:'E-AER',name:'Aura',family:'elementa',role:'Elementum · Aire',meaning:'Mente, lenguaje y comunicación: lo intangible que organiza y transmite.',question:'¿Qué idea necesita ser expresada?',practice:'poné en palabras simples lo que hasta ahora era difuso.',image:'assets/ET_INF_AURA.png'},
-      {id:'E-FIAMMA',name:'Flamma',family:'elementa',role:'Elementum · Fuego',meaning:'Impulso, deseo y acción: la chispa que inicia el movimiento.',question:'¿Qué quiere ponerse en marcha?',practice:'elegí una acción pequeña que encienda el proceso.',image:'assets/ET_INF_FLAMMA.png'},
+      {id:'E-AQUA',name:'Unda',family:'elementa',role:'Elementum · Agua',meaning:'Emoción, sensibilidad y movimiento interior: lo que fluye y transforma desde adentro.',question:'¿Qué emoción está pidiendo circular?',practice:'nombrá la emoción sin juzgarla y dejá que indique una dirección.',image:'assets/ET_INF_AQUA.jpg'},
+      {id:'E-AER',name:'Aura',family:'elementa',role:'Elementum · Aire',meaning:'Mente, lenguaje y comunicación: lo intangible que organiza y transmite.',question:'¿Qué idea necesita ser expresada?',practice:'poné en palabras simples lo que hasta ahora era difuso.',image:'assets/ET_INF_UNDA.png'},
+      {id:'E-FIAMMA',name:'Flamma',family:'elementa',role:'Elementum · Fuego',meaning:'Impulso, deseo y acción: la chispa que inicia el movimiento.',question:'¿Qué quiere ponerse en marcha?',practice:'elegí una acción pequeña que encienda el proceso.',image:'assets/ET_INF_FIAMMA.jpg'},
       {id:'E-TEMPUS',name:'Tempus',family:'custodes',role:'Custodes de principio · Ritmo',meaning:'El tiempo como fuerza viva: ritmo, espera y maduración de aquello que todavía está tomando forma.',question:'¿Qué necesita tiempo en lugar de presión?',practice:'distinguí entre esperar con atención y postergar por miedo.',image:'assets/ET_INF_TEMPUS.jpg'},
       {id:'SIGILIUM',name:'Sigilium',family:'dorso',role:'Sello · Dorso del mazo',meaning:'Reverso único del mazo; no se repite como carta de lectura.',question:'¿Qué intención querés sellar antes de comenzar?',practice:'Usalo para iniciar y cerrar una tirada.',image:'assets/SIGILIUM.png'}
     ];
     // Una sola fuente de datos alimenta la tarjeta rápida, el Códex ampliado y los enlaces QR.
     const slugify=value=>value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
     lessons.forEach(card=>{
-      if(card.family==='confirmadas') { card.family='essentors'; card.subfamily=['016','017','018','019','020','021','I','II','III','E-TEMPUS'].includes(card.id)?'essentors-metalquimicos':'essentors-correspondencia'; }
+      if(card.family==='confirmadas') { card.family='essentors'; card.subfamily=['I','II','III'].includes(card.id)?'essentors-metalquimicos':'essentors-correspondencia'; }
       if(card.family==='custodes') card.family='custodes-principarium';
       if(card.family==='elementa') card.family='custodes-elementales';
       if((card.meaning||'').includes('pendiente')) card.meaning=(card.question||'Esta fuerza pide observación').replace(/[¿?]/g,'').trim()+'.';
@@ -265,6 +265,8 @@
       card.correspondences=card.correspondences||'Leé esta carta en relación con su principio, elemento, regente y la posición que ocupa en la tirada.';
       card.codex=card.codex||{};
     });
+    const familyCounts={all:lessons.filter(card=>card.family!=='dorso').length,essentors:lessons.filter(card=>card.family==='essentors').length,'essentors-correspondencia':lessons.filter(card=>card.subfamily==='essentors-correspondencia').length,'essentors-metalquimicos':lessons.filter(card=>card.subfamily==='essentors-metalquimicos').length,'custodes-principarium':lessons.filter(card=>card.family==='custodes-principarium').length,'custodes-elementales':lessons.filter(card=>card.family==='custodes-elementales').length};
+    document.querySelectorAll('[data-family]').forEach(button=>{const count=familyCounts[button.dataset.family];if(Number.isFinite(count)) button.textContent=`${button.textContent.replace(/\s*\(\d+\)$/,'')} (${count})`;});
     const audens=lessons.find(card=>card.id==='000');
     if(audens){
       audens.name='Audens Viator';
