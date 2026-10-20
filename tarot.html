@@ -383,8 +383,8 @@
     const accessForm=document.getElementById('accessForm');
     const accessInput=document.getElementById('accessInput');
     const accessStatus=document.getElementById('accessStatus');
-    const storedAccess=localStorage.getItem('evigila-access-code');
-    if(storedAccess&&window.evigilaAccess.validAccessCode(storedAccess)){accessInput.value='AUDENTIS-000';accessStatus.textContent='Código activo en este dispositivo ✦';}
+    accessInput.value='';
+    accessStatus.textContent='';
     accessForm.addEventListener('submit',event=>{event.preventDefault();const code=accessInput.value.trim();if(!window.evigilaAccess.validAccessCode(code)){accessStatus.textContent='La clave no coincide. Revisá los datos de acceso.';return;}localStorage.setItem('evigila-access-code','AUDENTIS-000');accessStatus.textContent='Clave válida. Aula EVIGILA desbloqueada ✦';document.body.classList.remove('public-mode','code-entry-mode');document.body.classList.add('buyer-mode');document.getElementById('tiradas').scrollIntoView({behavior:'smooth'});});
     if(document.body.classList.contains('code-entry-mode')){setTimeout(()=>document.getElementById('access-code')?.scrollIntoView({behavior:'smooth',block:'center'}),80);}
     if(document.body.classList.contains('public-mode')){
