@@ -100,7 +100,7 @@
         <div class="eyebrow">Un sistema simbólico para mirar en movimiento</div>
         <h1>No es un Tarot que predice.<br><em>Es un Tarot que despierta.</em></h1>
         <p>EVIGILA es la primera expresión de la misión de MPA: una línea de vigilia para sostener la atención. No se trata de despertar una sola vez, sino de volver a mirar antes de dormirse por completo. El Tarot de los Essentors es su primera puerta; el universo EVIGILA continúa más allá de las cartas.</p>
-        <div class="hero-actions"><a class="btn primary" href="https://www.rociodopazo.com/obras?filtro=libros">Entrar al códex →</a><a class="btn ghost" href="#tiradas">Ver una tirada</a><a class="btn ghost" href="?access=1#access-code">Entrená con EVIGILA y tu clave →</a><a class="btn ghost" href="https://www.rociodopazo.com/obras?filtro=juegos">Volver a Juegos ↗</a></div><div class="spell-line"><span>✦</span> observar · nombrar · mover · transformar <span>✦</span></div>
+        <div class="hero-actions"><a class="btn primary" href="https://www.rociodopazo.com/obras?filtro=libros">Entrar al códex →</a><a class="btn ghost" href="#tiradas">Ver una tirada</a><a class="btn ghost" id="trainingCta" href="?access=1#access-code">Entrená con EVIGILA y tu clave →</a><a class="btn ghost" href="https://www.rociodopazo.com/obras?filtro=juegos">Volver a Juegos ↗</a></div><div class="spell-line"><span>✦</span> observar · nombrar · mover · transformar <span>✦</span></div>
       </div>
       <div class="portal" aria-label="Portal visual del Tarot EVIGILA">
         <div class="portal-label">MPA Tarot · Bloque IV</div><div class="orbit"></div>
@@ -135,7 +135,7 @@
       <div class="wrap">
         <div class="section-head"><div class="eyebrow">Práctica · aprender jugando</div><h2>Elegí una carta.<br><em>Arrastrala a la mesa.</em></h2><p>Acá no estás haciendo una tirada todavía. Estás entrenando la mirada: tomás una carta del mazo y la llevás a una posición para aprender qué pregunta abre.</p></div>
         <div class="deck-practice">
-          <div class="deck-practice-head"><div><div class="eyebrow">Tu mazo</div><h3>De la mano a la mesa</h3><p>Arrastrá la carta hacia una de las tres posiciones. En celular también podés tocarla y elegir dónde dejarla.</p></div></div>
+          <div class="deck-practice-head"><div><div class="eyebrow">Tu mazo</div><h3>De la mano a la mesa</h3><p>Arrastrá la carta hacia una de las tres posiciones. En celular también podés tocarla y elegir dónde dejarla.</p></div><button class="btn ghost" id="resetTable" type="button">Nueva mesa ✦</button></div>
           <div class="deck-board"><div class="deck-stack"><div class="deck-card" id="deckCard" draggable="false"><img src="assets/CONTRACARA.png" alt="Dorso del mazo EVIGILA"></div></div></div><div class="drop-slots"><div class="drop-slot" data-drop="escena">Elegí una carta<br><b>La escena</b></div><div class="drop-slot" data-drop="fuerza">Elegí una carta<br><b>La fuerza</b></div><div class="drop-slot" data-drop="paso">Elegí una carta<br><b>El paso</b></div></div></div>
           <div class="deck-instruction" id="deckInstruction">Tomá la carta y llevála a la mesa ✦</div>
         </div>
@@ -368,7 +368,7 @@
     function refreshDeckCard(){
       if(!readingLessons.length){deckInstruction.textContent='La práctica se habilita cuando terminemos de verificar las cartas del proyecto correcto.';return;}
       const available=readingLessons.filter(card=>!practiceUsedIds.has(card.id));
-      if(!available.length){selectedDeckCard=null;deckInstruction.textContent='Ya recorriste todas las cartas confirmadas en esta práctica. Reiniciá la práctica para volver a empezar.';return;}
+      if(!available.length){practiceUsedIds.clear();document.querySelectorAll('.drop-slot').forEach(slot=>{slot.classList.remove('filled');slot.innerHTML='Elegí una carta<br><b>'+slot.dataset.drop+'</b>';});selectedDeckCard=null;deckInstruction.textContent='Mesa reiniciada. Elegí una carta para comenzar.';return;}
       selectedDeckCard=available[Math.floor(Math.random()*available.length)];
       deckCard.querySelector('img').src=selectedDeckCard.image;deckCard.querySelector('img').alt=`Carta ${selectedDeckCard.name}`;deckInstruction.textContent=`${selectedDeckCard.name} · ${selectedDeckCard.role} · arrastrala a una posición ✦`;
     }
@@ -378,6 +378,7 @@
     deckCard.addEventListener('click',()=>{refreshDeckCard();deckInstruction.textContent='Carta elegida. Ahora tocá una posición para dejarla en la mesa ✦';});
     document.querySelectorAll('[data-drop]').forEach(slot=>{slot.addEventListener('dragover',event=>{event.preventDefault();slot.classList.add('over')});slot.addEventListener('dragleave',()=>slot.classList.remove('over'));slot.addEventListener('drop',event=>{event.preventDefault();slot.classList.remove('over');placeDeckCard(slot)});slot.addEventListener('click',()=>{if(deckCard.dataset.ready==='true'){placeDeckCard(slot);deckCard.dataset.ready='false'}})});
     deckCard.addEventListener('click',()=>deckCard.dataset.ready='true');
+    document.getElementById('resetTable')?.addEventListener('click',()=>{practiceUsedIds.clear();document.querySelectorAll('.drop-slot').forEach(slot=>{slot.classList.remove('filled');slot.innerHTML='Elegí una carta<br><b>'+slot.dataset.drop+'</b>';});refreshDeckCard();deckInstruction.textContent='Nueva mesa lista. Tomá una carta y elegí una posición ✦';});
     document.querySelectorAll('[data-mode]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-mode]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('modeCopy').textContent=copy[btn.dataset.mode]}));
     document.querySelectorAll('[data-card]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-card]').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');const card=cards[btn.dataset.card];document.getElementById('practiceResult').innerHTML='<strong>'+card.name+'</strong><br>'+card.text}));
     const accessForm=document.getElementById('accessForm');
@@ -400,6 +401,8 @@
       if(cta){cta.href='https://evigilatarot.rociodopazo.com/tarot';cta.textContent='Volver a EVIGILA Tarot';}
       const tableLink=document.querySelector('nav a[href="#practica-juego"]');
       if(tableLink){tableLink.textContent='Abrir la mesa';}
+      const trainingCta=document.getElementById('trainingCta');
+      if(trainingCta){trainingCta.href='#practica-juego';trainingCta.textContent='Abrir la mesa →';}
     }
   </script>
 </body>
