@@ -365,6 +365,29 @@
     const deckCard=document.getElementById('deckCard');
     const deckInstruction=document.getElementById('deckInstruction');
     let selectedDeckCard=null;
+    let tableSize=3;
+    const dropSlots=document.getElementById('dropSlots');
+    function bindDropSlots(){
+      document.querySelectorAll('#dropSlots [data-drop]').forEach(slot=>{
+        slot.addEventListener('dragover',event=>{event.preventDefault();slot.classList.add('over')});
+        slot.addEventListener('dragleave',()=>slot.classList.remove('over'));
+        slot.addEventListener('drop',event=>{event.preventDefault();slot.classList.remove('over');placeDeckCard(slot)});
+        slot.addEventListener('click',()=>{if(deckCard.dataset.ready==='true'){placeDeckCard(slot);deckCard.dataset.ready='false'}});
+      });
+    }
+    function renderTableSlots(){
+      if(!dropSlots)return;
+      dropSlots.dataset.size=String(tableSize);
+      dropSlots.innerHTML=Array.from({length:tableSize},(_,index)=>`<div class="drop-slot" data-drop="posición-${index+1}">Elegí una carta<br><b>Posición ${index+1}</b></div>`).join('');
+      bindDropSlots();
+    }
+    function resetTable(){
+      practiceUsedIds.clear();
+      selectedDeckCard=null;
+      renderTableSlots();
+      refreshDeckCard();
+      deckInstruction.textContent='Nueva mesa lista. Tomá una carta y elegí una posición ✦';
+    }
     function refreshDeckCard(){
       if(!readingLessons.length){deckInstruction.textContent='La práctica se habilita cuando terminemos de verificar las cartas del proyecto correcto.';return;}
       const available=readingLessons.filter(card=>!practiceUsedIds.has(card.id));
@@ -376,9 +399,11 @@
     deckCard.addEventListener('dragstart',event=>{event.dataTransfer.setData('text/plain','deck-card');deckCard.style.opacity='.55'});
     deckCard.addEventListener('dragend',()=>deckCard.style.opacity='1');
     deckCard.addEventListener('click',()=>{refreshDeckCard();deckInstruction.textContent='Carta elegida. Ahora tocá una posición para dejarla en la mesa ✦';});
-    document.querySelectorAll('[data-drop]').forEach(slot=>{slot.addEventListener('dragover',event=>{event.preventDefault();slot.classList.add('over')});slot.addEventListener('dragleave',()=>slot.classList.remove('over'));slot.addEventListener('drop',event=>{event.preventDefault();slot.classList.remove('over');placeDeckCard(slot)});slot.addEventListener('click',()=>{if(deckCard.dataset.ready==='true'){placeDeckCard(slot);deckCard.dataset.ready='false'}})});
     deckCard.addEventListener('click',()=>deckCard.dataset.ready='true');
-    document.getElementById('resetTable')?.addEventListener('click',()=>{practiceUsedIds.clear();document.querySelectorAll('.drop-slot').forEach(slot=>{slot.classList.remove('filled');slot.innerHTML='Elegí una carta<br><b>'+slot.dataset.drop+'</b>';});refreshDeckCard();deckInstruction.textContent='Nueva mesa lista. Tomá una carta y elegí una posición ✦';});
+    document.querySelectorAll('[data-table-size]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-table-size]').forEach(item=>item.classList.remove('active'));button.classList.add('active');tableSize=Number(button.dataset.tableSize)||3;resetTable();}));
+    document.getElementById('resetTable')?.addEventListener('click',resetTable);
+    renderTableSlots();
+    refreshDeckCard();
     document.querySelectorAll('[data-mode]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-mode]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('modeCopy').textContent=copy[btn.dataset.mode]}));
     document.querySelectorAll('[data-card]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-card]').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');const card=cards[btn.dataset.card];document.getElementById('practiceResult').innerHTML='<strong>'+card.name+'</strong><br>'+card.text}));
     const accessForm=document.getElementById('accessForm');
