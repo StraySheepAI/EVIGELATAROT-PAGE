@@ -393,9 +393,13 @@
       if(publicLinks[1]){publicLinks[1].href='#tiradas';publicLinks[1].textContent='Ver una tirada ↓';publicLinks[1].style.display='inline-flex';}
       const cta=document.querySelector('nav .nav-cta');
       if(cta){cta.href='#ediciones';cta.textContent='Elegí tu puerta de entrada';}
+      const tableLink=document.querySelector('nav a[href="#practica-juego"]');
+      if(tableLink){tableLink.href='?access=1#access-code';tableLink.textContent='Entrar a la mesa';}
     } else {
       const cta=document.querySelector('nav .nav-cta');
       if(cta){cta.href='https://evigilatarot.rociodopazo.com/tarot';cta.textContent='Volver a EVIGILA Tarot';}
+      const tableLink=document.querySelector('nav a[href="#practica-juego"]');
+      if(tableLink){tableLink.textContent='Abrir la mesa';}
     }
   </script>
 </body>
