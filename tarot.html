@@ -63,15 +63,23 @@
     body.public-mode #codex .entry p{min-height:78px}
     body.public-mode #downloadSpread,
     body.public-mode #saveSpread{opacity:.42;filter:grayscale(1);cursor:not-allowed}
+    body.code-entry-mode #universo{display:block}
+    body.code-entry-mode nav a[href="#aprendizaje"],
+    body.code-entry-mode nav a[href="#practica-juego"]{display:none}
   </style>
 </head>
 <body>
   <script>
-    // Sin código, la ruta raíz es la presentación pública. El hash de activación conserva el aula completa.
+    // La presentación es pública; el aula completa solo se abre con una clave válida.
     (()=>{
-      const buyerMode=window.location.hash==='#access-code'||Boolean(localStorage.getItem('evigila-access-code'));
+      const normalizeAccessCode=code=>String(code||'').toUpperCase().replace(/[\s-]/g,'');
+      const validAccessCode=code=>normalizeAccessCode(code)==='AUDENTIS000';
+      const accessRequested=window.location.hash==='#access-code'||new URLSearchParams(window.location.search).get('access')==='1';
+      const buyerMode=validAccessCode(localStorage.getItem('evigila-access-code'));
       document.body.classList.toggle('buyer-mode',buyerMode);
       document.body.classList.toggle('public-mode',!buyerMode);
+      document.body.classList.toggle('code-entry-mode',accessRequested&&!buyerMode);
+      window.evigilaAccess={normalizeAccessCode,validAccessCode};
     })();
   </script>
   <div class="page-glow"></div>
@@ -376,8 +384,8 @@
     const accessInput=document.getElementById('accessInput');
     const accessStatus=document.getElementById('accessStatus');
     const storedAccess=localStorage.getItem('evigila-access-code');
-    if(storedAccess){accessInput.value=storedAccess;accessStatus.textContent='Código activo en este dispositivo ✦';}
-    accessForm.addEventListener('submit',event=>{event.preventDefault();const code=accessInput.value.trim().toUpperCase();if(!/^[A-Z0-9][A-Z0-9-]{4,}$/.test(code)){accessStatus.textContent='Escribí el código de la etiqueta para activar tu acceso.';return;}localStorage.setItem('evigila-access-code',code);accessStatus.textContent='Código recibido. Tu puerta de entrada quedó guardada ✦';document.getElementById('tiradas').scrollIntoView({behavior:'smooth'});});
+    if(storedAccess&&window.evigilaAccess.validAccessCode(storedAccess)){accessInput.value='AUDENTIS-000';accessStatus.textContent='Código activo en este dispositivo ✦';}
+    accessForm.addEventListener('submit',event=>{event.preventDefault();const code=accessInput.value.trim();if(!window.evigilaAccess.validAccessCode(code)){accessStatus.textContent='La clave no coincide. Revisá la etiqueta de tu caja.';return;}localStorage.setItem('evigila-access-code','AUDENTIS-000');accessStatus.textContent='Código válido. Aula EVIGILA desbloqueada ✦';document.body.classList.remove('public-mode','code-entry-mode');document.body.classList.add('buyer-mode');document.getElementById('tiradas').scrollIntoView({behavior:'smooth'});});
     if(document.body.classList.contains('public-mode')){
       const publicLinks=document.querySelectorAll('#codex .entry a');
       if(publicLinks[0]){publicLinks[0].href='https://www.rociodopazo.com/obras?filtro=libros';publicLinks[0].textContent='Ver libros · Códex ↗';publicLinks[0].style.display='inline-flex';}
