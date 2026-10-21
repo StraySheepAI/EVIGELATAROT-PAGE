@@ -48,6 +48,7 @@
     @media(min-width:851px){.access-grid{grid-template-columns:repeat(2,1fr)}}
     /* Keep every card fully visible inside the reading table. */
     .drop-slot.filled img{display:block;width:100%;height:auto;aspect-ratio:2/3;object-fit:contain;object-position:center;border-radius:8px;background:#15081f}
+    .taxonomy-filters{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 22px}.taxonomy-filters label{display:flex;align-items:center;gap:8px;color:var(--gold-soft);font-size:10px;letter-spacing:.14em;text-transform:uppercase}.taxonomy-filters select{min-width:190px;padding:9px 30px 9px 12px;border:1px solid rgba(210,170,105,.4);border-radius:999px;background:rgba(255,255,255,.05);color:var(--paper);font:400 14px 'PT Serif',serif}
   </style>
   <style>
     /* Tratamiento dorado MPA: bronce profundo, brillo central y sombra suave. */
@@ -156,6 +157,7 @@
         <div class="learning-studio">
           <div>
             <div class="family-tabs" role="tablist" aria-label="Familias del mazo"><button class="active" data-family="all">Todos</button><button data-family="essentors">Essentors</button><button data-family="essentors-correspondencia">Essentors de correspondencia</button><button data-family="essentors-metalquimicos">Essentors metalkímicos</button><button data-family="custodes-principarium">Custodes de principio</button><button data-family="custodes-elementales">Custodes elementales</button></div>
+            <div class="taxonomy-filters" aria-label="Filtros de clasificación"><label>Ordo<select id="ordoFilter"><option value="all">Todos los Ordos</option></select></label><label>Legado / apellido<select id="legacyFilter"><option value="all">Todos los legados</option></select></label></div>
             <div class="lesson-grid" id="lessonGrid"></div>
           </div>
           <aside class="lesson-detail" id="lessonDetail" aria-label="Mini guía de la carta seleccionada" aria-live="polite"><div class="detail-kicker">Mini guía</div><h3>Elegí una carta</h3><p>Empezá por observar la escena: ¿qué está haciendo esta energía antes de intentar interpretarla?</p><div class="lesson-question">La primera lectura no responde. Formula una pregunta más precisa.</div></aside>
@@ -252,12 +254,17 @@
       {id:'E-TEMPUS',name:'Tempus',family:'custodes',role:'Custodes de principio · Ritmo',meaning:'El tiempo como fuerza viva: ritmo, espera y maduración de aquello que todavía está tomando forma.',question:'¿Qué necesita tiempo en lugar de presión?',practice:'distinguí entre esperar con atención y postergar por miedo.',image:'assets/ET_INF_TEMPUS.jpg'},
       {id:'SIGILIUM',name:'Sigilium',family:'dorso',role:'Sello · Dorso del mazo',meaning:'Reverso único del mazo; no se repite como carta de lectura.',question:'¿Qué intención querés sellar antes de comenzar?',practice:'Usalo para iniciar y cerrar una tirada.',image:'assets/SIGILIUM.png'}
     ];
+    // Clasificación canónica tomada del Códex EVIGILA: Ordos y legados/apellidos.
+    const ordoById={'000':'Ordo Cinis','010':'Ordo Cinis','013':'Ordo Cinis','015':'Ordo Cinis','016':'Ordo Cinis','001':'Ordo Aureum','003':'Ordo Aureum','004':'Ordo Aureum','007':'Ordo Aureum','020':'Ordo Aureum','002':'Ordo Nox','005':'Ordo Nox','009':'Ordo Nox','018':'Ordo Nox','019':'Ordo Nox','006':'Ordo Aetherium','008':'Ordo Aetherium','014':'Ordo Aetherium','021':'Ordo Aetherium'};
+    const legacyById={'000':'Viator','001':'Imperatum','002':'Custos','003':'Imperatum','004':'Imperatum','005':'Custos','006':'Pactum','007':'Viator','008':'Pactum','009':'Custos','010':'Mutatio','011':'Imperium','012':'Mutatio','013':'Ruina','014':'Pactum','015':'Rex','016':'Ruina','017':'Rex','018':'Lumen','019':'Lumen','020':'Mutatio','021':'Viator'};
     // Una sola fuente de datos alimenta la tarjeta rápida, el Códex ampliado y los enlaces QR.
     const slugify=value=>value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
     lessons.forEach(card=>{
       if(card.family==='confirmadas') { card.family='essentors'; card.subfamily=['I','II','III'].includes(card.id)?'essentors-metalquimicos':'essentors-correspondencia'; }
       if(card.family==='custodes') card.family='custodes-principarium';
       if(card.family==='elementa') card.family='custodes-elementales';
+      card.ordo=ordoById[card.id]||'Sin Ordo asignado en Notion';
+      card.legacy=legacyById[card.id]||(card.family==='essentors-metalquimicos'?'Metalkímico':'Sin legado asignado');
       if((card.meaning||'').includes('pendiente')) card.meaning=(card.question||'Esta fuerza pide observación').replace(/[¿?]/g,'').trim()+'.';
       card.slug=card.slug||slugify(card.name);
       card.summary=card.summary||card.meaning;
@@ -267,7 +274,7 @@
       card.correspondences=card.correspondences||'Leé esta carta en relación con su principio, elemento, regente y la posición que ocupa en la tirada.';
       card.codex=card.codex||{};
     });
-    const familyCounts={all:lessons.filter(card=>card.family!=='dorso').length,essentors:lessons.filter(card=>card.family==='essentors').length,'essentors-correspondencia':lessons.filter(card=>card.subfamily==='essentors-correspondencia').length,'essentors-metalquimicos':lessons.filter(card=>card.subfamily==='essentors-metalquimicos').length,'custodes-principarium':lessons.filter(card=>card.family==='custodes-principarium').length,'custodes-elementales':lessons.filter(card=>card.family==='custodes-elementales').length};
+    const familyCounts={all:lessons.length,essentors:lessons.filter(card=>card.family==='essentors').length,'essentors-correspondencia':lessons.filter(card=>card.subfamily==='essentors-correspondencia').length,'essentors-metalquimicos':lessons.filter(card=>card.subfamily==='essentors-metalquimicos').length,'custodes-principarium':lessons.filter(card=>card.family==='custodes-principarium').length,'custodes-elementales':lessons.filter(card=>card.family==='custodes-elementales').length};
     document.querySelectorAll('[data-family]').forEach(button=>{const count=familyCounts[button.dataset.family];if(Number.isFinite(count)) button.textContent=`${button.textContent.replace(/\s*\(\d+\)$/,'')} (${count})`;});
     const audens=lessons.find(card=>card.id==='000');
     if(audens){
@@ -297,8 +304,14 @@
     }
     const lessonGrid=document.getElementById('lessonGrid');
     const lessonDetail=document.getElementById('lessonDetail');
-    function renderLessons(family='all'){
-      const visible=family==='all'?lessons:family.startsWith('essentors-')?lessons.filter(card=>card.subfamily===family):lessons.filter(card=>card.family===family);
+    let activeFamily='all',activeOrdo='all',activeLegacy='all';
+    const populateTaxonomyFilter=(id,values,allLabel)=>{const select=document.getElementById(id);if(!select)return;[...new Set(values.filter(Boolean))].sort().forEach(value=>{const option=document.createElement('option');option.value=value;option.textContent=value;select.appendChild(option);});select.setAttribute('aria-label',allLabel);};
+    populateTaxonomyFilter('ordoFilter',lessons.map(card=>card.ordo),'Todos los Ordos');
+    populateTaxonomyFilter('legacyFilter',lessons.map(card=>card.legacy),'Todos los legados');
+    function renderLessons(family=activeFamily){
+      activeFamily=family;
+      const byFamily=family==='all'?lessons:family.startsWith('essentors-')?lessons.filter(card=>card.subfamily===family):lessons.filter(card=>card.family===family);
+      const visible=byFamily.filter(card=>(activeOrdo==='all'||card.ordo===activeOrdo)&&(activeLegacy==='all'||card.legacy===activeLegacy));
       lessonGrid.innerHTML=visible.map((card,index)=>`<button class="lesson-card${index===0?' selected':''}" data-lesson="${card.id}"><img src="${card.image}" alt="Carta ${card.name}"><b>${card.name}</b><span>${card.role}</span></button>`).join('');
       lessonGrid.querySelectorAll('[data-lesson]').forEach(button=>button.addEventListener('click',()=>selectLesson(button.dataset.lesson)));
       if(visible[0]) selectLesson(visible[0].id);
@@ -314,6 +327,8 @@
       lessonDetail.innerHTML=`<div class="detail-kicker">Mini guía · ${card.family}</div><div class="mini-guide"><img src="${card.image}" alt="Carta ${card.name}"><div><h4>${card.name}</h4><p>${card.role}</p><a class="stable-link" href="${url.pathname}?c=${card.slug}#mini-guia">Abrir enlace estable ↗</a></div></div><p>${card.summary}</p><span class="guide-label">Palabras clave</span><div class="keyword-list">${keywords}</div><span class="guide-label">Energía</span><div class="flow-grid"><div><b>Fluida</b>${card.flow}</div><div><b>Bloqueada</b>${card.blocked}</div></div><span class="guide-label">Correspondencias principales</span><p>${card.correspondences}</p><div class="lesson-question">${card.question}</div><div class="lesson-action">Práctica · ${card.practice}</div><details open><summary>Ampliar en el Códex</summary><div class="codex-sections">${expanded||'<p>Esta ficha está preparada para recibir el contenido ampliado del Códex.</p>'}</div></details>`;
     }
     document.querySelectorAll('[data-family]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-family]').forEach(item=>item.classList.remove('active'));button.classList.add('active');renderLessons(button.dataset.family)}));
+    document.getElementById('ordoFilter')?.addEventListener('change',event=>{activeOrdo=event.target.value;renderLessons();});
+    document.getElementById('legacyFilter')?.addEventListener('change',event=>{activeLegacy=event.target.value;renderLessons();});
     renderLessons();
     const requestedCard=new URLSearchParams(window.location.search).get('c');
     const accessEntryRequested=window.location.hash==='#access-code'||new URLSearchParams(window.location.search).get('access')==='1';
