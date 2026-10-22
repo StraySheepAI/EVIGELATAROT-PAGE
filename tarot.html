@@ -85,13 +85,12 @@
     // La presentación es pública; el aula completa solo se abre con una clave válida.
     (()=>{
       const normalizeAccessCode=code=>String(code||'').toUpperCase().replace(/[\s-]/g,'');
-      const validAccessCode=code=>normalizeAccessCode(code)==='AUDENTIS000';
       const accessRequested=window.location.hash==='#access-code'||new URLSearchParams(window.location.search).get('access')==='1';
-      const buyerMode=validAccessCode(localStorage.getItem('evigila-access-code'));
+      const buyerMode=localStorage.getItem('evigila-access-granted')==='true';
       document.body.classList.toggle('buyer-mode',buyerMode);
       document.body.classList.toggle('public-mode',!buyerMode);
       document.body.classList.toggle('code-entry-mode',accessRequested&&!buyerMode);
-      window.evigilaAccess={normalizeAccessCode,validAccessCode};
+      window.evigilaAccess={normalizeAccessCode};
     })();
   </script>
   <div class="page-glow"></div>
@@ -219,7 +218,7 @@
           <article class="access-card"><div class="tag">Acceso QR · Público</div><h3>Conocer EVIGILA</h3><p>Explorá las cartas, aprendé las familias y probá una tirada pública de muestra.</p><a class="btn ghost" href="#aprendizaje">Empezar la Mini Guía →</a></article>
           <article class="access-card"><div class="tag">Nivel Códex · Próximamente</div><h3>Códex EVIGILA Vol. I</h3><p>La Mini Guía se amplía próximamente con historias de los Essentors, capas alquímicas, regentes, principios, elementos, relaciones y lecturas relacionales. Será un producto aparte.</p><a class="btn ghost" href="#ediciones">Ver la edición de estudio ↗</a></article>
         </div>
-        <div class="access-unlock" id="access-code"><div><div class="eyebrow">Acceso privado</div><h3>Entrená con EVIGILA</h3><p>Ingresá tu clave privada para abrir el aula completa y sus herramientas de entrenamiento.</p></div><form id="accessForm"><label for="accessInput">Clave privada</label><div class="access-form-row"><input id="accessInput" name="code" autocomplete="off" placeholder="Ingresá tu clave privada" aria-describedby="accessStatus"><button class="btn primary" type="submit">Entrar al aula</button></div><p class="access-status" id="accessStatus" role="status" aria-live="polite"></p></form></div>
+        <div class="access-unlock" id="access-code"><div><div class="eyebrow">Acceso privado</div><h3>Entrená con EVIGILA</h3><p>Ingresá tu clave privada y tu mail para abrir el aula completa y sus herramientas de entrenamiento.</p></div><form id="accessForm"><label for="accessInput">Clave privada</label><div class="access-form-row"><input id="accessInput" name="code" autocomplete="off" placeholder="Ingresá tu clave privada" aria-describedby="accessStatus"><button class="btn primary" type="submit">Entrar al aula</button></div><label for="accessEmail" style="margin-top:14px">Mail</label><div class="access-form-row"><input id="accessEmail" name="email" type="email" autocomplete="email" placeholder="tu@mail.com" aria-describedby="accessStatus" required></div><p class="access-status" id="accessStatus" role="status" aria-live="polite"></p></form></div>
       </div>
     </section>
 
@@ -489,10 +488,15 @@
     document.querySelectorAll('[data-card]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-card]').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');const card=cards[btn.dataset.card];document.getElementById('practiceResult').innerHTML='<strong>'+card.name+'</strong><br>'+card.text}));
     const accessForm=document.getElementById('accessForm');
     const accessInput=document.getElementById('accessInput');
+    const accessEmail=document.getElementById('accessEmail');
     const accessStatus=document.getElementById('accessStatus');
+    const accessSubmit=accessForm?.querySelector('button[type="submit"]');
+    const SUPABASE_URL='https://fvoirflymkiclokjkvhj.supabase.co';
+    const SUPABASE_PUBLISHABLE_KEY='sb_publishable_VybE4v_QhNvCVG_kdgDhKg_JlH9r78J';
     accessInput.value='';
+    if(accessEmail)accessEmail.value='';
     accessStatus.textContent='';
-    accessForm.addEventListener('submit',event=>{event.preventDefault();const code=accessInput.value.trim();if(!window.evigilaAccess.validAccessCode(code)){accessStatus.textContent='La clave no coincide. Revisá los datos de acceso.';return;}localStorage.setItem('evigila-access-code','AUDENTIS-000');accessStatus.textContent='Clave válida. Aula EVIGILA desbloqueada ✦';document.body.classList.remove('public-mode','code-entry-mode');document.body.classList.add('buyer-mode');document.getElementById('tiradas').scrollIntoView({behavior:'smooth'});});
+    accessForm.addEventListener('submit',async event=>{event.preventDefault();const code=accessInput.value.trim();const email=(accessEmail?.value||'').trim().toLowerCase();if(!code||!email){accessStatus.textContent='Escribí tu clave y tu mail para continuar.';return;}if(accessSubmit){accessSubmit.disabled=true;accessSubmit.textContent='Comprobando…';}accessStatus.textContent='';try{const response=await fetch(`${SUPABASE_URL}/rest/v1/rpc/activate_evigila_code`,{method:'POST',headers:{apikey:SUPABASE_PUBLISHABLE_KEY,Authorization:`Bearer ${SUPABASE_PUBLISHABLE_KEY}`,'Content-Type':'application/json'},body:JSON.stringify({p_code:code,p_email:email})});const result=await response.json();if(!response.ok)throw new Error(result.message||'supabase_error');if(result.error==='invalid_code'){accessStatus.textContent='La clave no coincide. Revisá los datos de acceso.';return;}if(result.error==='trio_complete'){accessStatus.innerHTML='Esta clave ya completó su tríada. <a href="mailto:mpaflowconsulting@gmail.com?subject=No%20puedo%20entrar%20a%20EVIGILA">Escribinos</a>.';return;}if(result.error==='missing_code_or_email'){accessStatus.textContent='Escribí una clave y un mail válidos.';return;}if(!result.ok)throw new Error('activation_failed');localStorage.setItem('evigila-access-granted','true');localStorage.setItem('evigila-access-code',code);localStorage.setItem('evigila-access-email',email);accessStatus.textContent='Acceso confirmado. Aula EVIGILA desbloqueada ✦';document.body.classList.remove('public-mode','code-entry-mode');document.body.classList.add('buyer-mode');document.getElementById('tiradas').scrollIntoView({behavior:'smooth'});}catch(error){accessStatus.textContent='No pudimos comprobar la clave ahora. Revisá tu conexión e intentá de nuevo.';}finally{if(accessSubmit){accessSubmit.disabled=false;accessSubmit.textContent='Entrar al aula';}}});
     if(document.body.classList.contains('code-entry-mode')){setTimeout(()=>document.getElementById('access-code')?.scrollIntoView({behavior:'smooth',block:'center'}),80);}
     if(document.body.classList.contains('public-mode')){
       const publicLinks=document.querySelectorAll('#codex .entry a');
