@@ -441,9 +441,12 @@
       const names=pool.map((card,index)=>card.name+(orientations[index]==='invertida'?' · invertida':'')).join(' · ');
       const cta='<div class="reading-cta"><strong>Para profundizar</strong><br>Esta tirada es una puerta de entrada al sistema EVIGILA. <a href="https://www.rociodopazo.com/obras?filtro=juegos" target="_blank" rel="noreferrer">Conocé el mazo, el mini Códex y el sistema completo →</a></div>';
       const cardBlocks=pool.map((card,index)=>`<div class="reading-card"><strong>${card.name}${orientations[index]==='invertida'?' · invertida':''}</strong><small>${spreadSlots[index]?.label||`Posición ${index+1}`}</small><span><b>Qué muestra:</b> ${positionReading(card,index,orientations[index]==='invertida')}<br><b>Correspondencia:</b> ${correspondenceReading(card)}<br><b>Clave simbólica:</b> ${symbolCue(card)}</span></div>`).join('');
-      const relation=pool.length>1?pool.slice(0,-1).map((card,index)=>relationBetween(card,pool[index+1])).join(' '):'';
-      const arc=integrationFor(pool);
-      const possible=recipe?recipe.response:arc;
+      // La Gran Obra conserva la lectura narrativa curada de cada tirada MPA.
+      // La mesa de práctica usa relationBetween/integrationFor, porque allí
+      // necesitamos explorar combinaciones libres de cartas físicas.
+      const relation=pool.length>1?pool.slice(0,-1).map((card,index)=>`${card.name} abre la escena y ${pool[index+1].name} transforma la pregunta que deja abierta.`).join(' '):'';
+      const arc=`La secuencia muestra un movimiento: ${pool[0].name} abre la escena, ${pool[Math.floor(pool.length/2)].name} concentra el trabajo del presente y ${pool[pool.length-1].name} señala qué puede tomar forma si ese movimiento continúa.`;
+      const possible=recipe?recipe.response:`La lectura no da una respuesta cerrada. Sugiere observar qué se retira, qué está actuando ahora y qué condición necesita la última carta para volverse una posibilidad real.`;
       const question=recipe?recipe.question:(pool[1]||pool[0]).question;
       const action=recipe?recipe.action:(pool[pool.length-1].practice||'Elegí un movimiento pequeño y verificable para continuar la lectura.');
       return `<strong>${recipe?'Lectura de la combinación · '+recipe.id:'Lectura de la combinación'}</strong><br><span class="combination-path">${names}</span><div class="integrated-reading"><p><strong>La escena</strong><br>${arc}</p><div class="reading-cards">${cardBlocks}</div><p><strong>Cómo se relacionan</strong><br>${relation}</p><p><strong>Integración posible</strong><br>${finishSentence(possible)}</p><p><strong>Pregunta para seguir</strong><br>${finishSentence(question)}</p><p><strong>Movimiento concreto</strong><br>${finishSentence(action)}</p></div>${cta}`;
