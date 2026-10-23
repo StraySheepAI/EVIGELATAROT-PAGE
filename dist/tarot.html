@@ -441,10 +441,7 @@
       const recipe=spreadRecipes.find(item=>item.cards.every((name,index)=>pool[index]&&cleanName(pool[index].name)===cleanName(name))&&item.orientations.every((value,index)=>value===orientations[index]));
       const names=pool.map((card,index)=>card.name+(orientations[index]==='invertida'?' · invertida':'')).join(' · ');
       const cta='<div class="reading-cta"><strong>Para profundizar</strong><br>Esta tirada es una puerta de entrada al sistema EVIGILA. <a href="https://www.rociodopazo.com/obras?filtro=juegos" target="_blank" rel="noreferrer">Conocé el mazo, el mini Códex y el sistema completo →</a></div>';
-      const cardBlocks=pool.map((card,index)=>`<div class="reading-card"><strong>${card.name}${orientations[index]==='invertida'?' · invertida':''}</strong><small>${spreadSlots[index]?.label||`Posición ${index+1}`}</small><span><b>Qué muestra:</b> ${positionReading(card,index,orientations[index]==='invertida')}<br><b>Correspondencia:</b> ${correspondenceReading(card)}<br><b>Clave simbólica:</b> ${symbolCue(card)}</span></div>`).join('');
-      // La Gran Obra conserva la lectura narrativa curada de cada tirada MPA.
-      // La mesa de práctica usa relationBetween/integrationFor, porque allí
-      // necesitamos explorar combinaciones libres de cartas físicas.
+      const cardBlocks=pool.map((card,index)=>`<div class="reading-card"><strong>${card.name}${orientations[index]==='invertida'?' · invertida':''}</strong><small>${spreadSlots[index]?.label||`Posición ${index+1}`}</small><span><b>Qué muestra:</b> ${positionReading(card,index,orientations[index]==='invertida')}<br><b>Clave simbólica:</b> ${symbolReading(card)}</span></div>`).join('');
       const relation=pool.length>1?pool.slice(0,-1).map((card,index)=>`${card.name} abre la escena y ${pool[index+1].name} transforma la pregunta que deja abierta.`).join(' '):'';
       const arc=`La secuencia muestra un movimiento: ${pool[0].name} abre la escena, ${pool[Math.floor(pool.length/2)].name} concentra el trabajo del presente y ${pool[pool.length-1].name} señala qué puede tomar forma si ese movimiento continúa.`;
       const possible=recipe?recipe.response:`La lectura no da una respuesta cerrada. Sugiere observar qué se retira, qué está actuando ahora y qué condición necesita la última carta para volverse una posibilidad real.`;
