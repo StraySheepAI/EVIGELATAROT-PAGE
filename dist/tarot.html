@@ -495,10 +495,10 @@
     function positionLabel(index){return positionSpec(index).label;}
     function lowerFirst(value){const text=String(value||'').trim();return text?text.charAt(0).toLowerCase()+text.slice(1):text;}
     function sentenceCore(value){return String(value||'').trim().replace(/[.!?…]+$/,'');}
-    function questionCore(card){return sentenceCore(card&&card.question||cardMeaning(card));}
+    function questionCore(card){const raw=String(card&&card.question||'').trim();return raw||sentenceCore(cardMeaning(card));}
     function practiceCore(card){return sentenceCore(card&&card.practice||'elegí un gesto pequeño y verificable para continuar la lectura');}
     function correspondenceReading(card){const direct=card&&card.correspondences&&!/Leé esta carta en relación/i.test(card.correspondences)?card.correspondences:'';if(direct)return finishSentence(direct);const taxonomy=[card&&card.ordo,card&&card.legacy&&`Legado ${card.legacy}`].filter(Boolean);return taxonomy.length?taxonomy.join(' · '):'Correspondencia todavía en desarrollo.';}
-    function symbolCue(card){const symbols=card&&card.codex&&card.codex.symbols;if(symbols)return finishSentence(symbols);const keywords=(card&&card.keywords||[]).filter(Boolean).slice(0,3);if(keywords.length)return `La imagen funciona como una pista de ${keywords.join(', ')}: observá cómo aparece esa energía en la situación.`;return finishSentence(card&&card.question?`El símbolo abre esta pregunta: ${card.question}`:'La imagen pide observar antes de cerrar el sentido.');}
+    function symbolCue(card){const symbols=card&&card.codex&&card.codex.symbols;if(symbols)return finishSentence(symbols);const role=String(card&&card.role||'').split('·').pop().trim();if(role&&!/carta confirmada/i.test(role))return `La imagen pone en juego ${lowerFirst(sentenceCore(role))}: observá cómo aparece esa cualidad en la situación.`;return `La imagen pone en primer plano ${lowerFirst(sentenceCore(cardMeaning(card)))}.`;}
     const tablePairRules={
       '001|013':'Ardominus intenta darle dirección a una posibilidad; Umbrae muestra qué parte de esa dirección todavía está operando sin ser reconocida. La relación pide organizar sin tapar lo que incomoda.',
       '013|021':'Umbrae señala lo que todavía no puede verse; Aetheris sugiere que esa sombra se entiende mejor cuando se observa la conexión entre los elementos de la escena.',

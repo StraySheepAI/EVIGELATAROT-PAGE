@@ -494,7 +494,7 @@
     function positionLabel(index){return positionSpec(index).label;}
     function sentenceCore(value){return String(value||'').trim().replace(/[.!?…]+$/,'');}
     function lowerFirst(value){const text=String(value||'').trim();return text?text.charAt(0).toLowerCase()+text.slice(1):text;}
-    function questionCore(card){return sentenceCore(card&&card.question||cardMeaning(card));}
+    function questionCore(card){const raw=String(card&&card.question||'').trim();return raw||sentenceCore(cardMeaning(card));}
     function practiceCore(card){return sentenceCore(card&&card.practice||'elegí un gesto pequeño y verificable para continuar la lectura');}
     function meaningCore(card){const source=card&&((card.meaning&&card.meaning.trim())||(card.summary&&card.summary.trim()));if(source&&!/pendiente de cargar/i.test(source))return sentenceCore(source);return `la pregunta «${questionCore(card)}»`;
     }
