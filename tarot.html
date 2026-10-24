@@ -381,10 +381,34 @@
     const spreadSlots=[{label:'Lo que ya no alcanza',key:'past'},{label:'Lo que está moviendo la situación',key:'present'},{label:'Lo que puede abrirse',key:'future'}];
     const spreadReadings={past:'Acá aparece qué forma, hábito o lectura dejó de organizar la escena.',present:'Esta posición muestra qué fuerza está actuando y qué pide una decisión consciente.',future:'Esta posición no promete un resultado: muestra qué puede empezar a tomar forma si el movimiento continúa.'};
     const finishSentence=value=>{const text=String(value||'').trim();return text&&!/[.!?…]$/.test(text)?text+'.':text;};
-    const cardMeaning=card=>{const source=card&&((card.meaning&&card.meaning.trim())||(card.summary&&card.summary.trim()));if(source&&!/pendiente de cargar/i.test(source))return finishSentence(source);return finishSentence(card&&card.question?`La carta pone en primer plano esta pregunta: ${card.question}`:'La carta pide observar la escena sin cerrarla demasiado pronto.');};
+    // Capa interpretativa profesional: completa la base cuando una ficha todavía no
+    // tiene el desarrollo editorial cargado, sin reemplazar los significados ya confirmados.
+    const professionalMeaningById={
+      '004':'Autoridad que pone límites, ordena la materia y asume la responsabilidad de decidir.',
+      '005':'La fuerza mayor que da marco y sentido: una enseñanza, una ley o una orientación que excede la voluntad individual.',
+      '006':'Elección vincular: dos caminos, dos deseos o dos valores piden ser puestos en relación antes de comprometerse.',
+      '009':'Comprensión que madura en silencio y permite distinguir lo esencial de la información que distrae.',
+      '010':'Ciclo y destino: una circunstancia cambia de fase y obliga a reconocer qué depende de la decisión y qué no.',
+      '011':'Fuerza serena: capacidad de sostener el instinto, regular el impulso y actuar sin necesidad de imponerse.',
+      '012':'Suspensión fértil: el tiempo cambia la perspectiva cuando se deja de forzar el desenlace.',
+      '013':'La sombra que devuelve una parte no reconocida de la experiencia y pide ser mirada sin juicio.',
+      '014':'Templanza y mezcla: dos fuerzas distintas encuentran una proporción que permite que la energía circule.',
+      '015':'Lo velado, la intuición y la incertidumbre: una imagen aparece antes de que la mente pueda explicarla.',
+      '016':'Impulso de ruptura: una chispa revela qué estructura ya no puede seguir intacta.',
+      '019':'Claridad que separa hechos, percepciones e interpretaciones para que la verdad pueda ser dicha con precisión.',
+      '021':'Totalidad y conexión: las partes encuentran un orden más amplio donde cada elemento cumple una función.'
+    };
+    const cardMeaning=card=>{const source=card&&((card.meaning&&card.meaning.trim())||(card.summary&&card.summary.trim()));if(source&&!/pendiente de cargar/i.test(source))return finishSentence(source);const professional=card&&professionalMeaningById[card.id];if(professional)return professional;return finishSentence(card&&card.question?`La carta pone en primer plano esta pregunta: ${card.question}`:'La carta pide observar la escena sin cerrarla demasiado pronto.');};
     const symbolReading=card=>{const symbols=card&&card.codex&&card.codex.symbols;if(symbols)return finishSentence(symbols);const keywords=(card&&card.keywords||[]).filter(Boolean).slice(0,3);if(keywords.length)return `La imagen puede leerse como una pista de ${keywords.join(', ')}: observá cómo aparece esa energía en tu situación.`;return 'La imagen funciona como una pista para observar la escena sin convertirla en una respuesta cerrada.';};
     const dictumFor=card=>card.codex&&card.codex.operation?card.codex.operation:'';
-    const positionReading=(card,index,reversed,text=cardMeaning(card))=>{const slot=spreadSlots[index]||spreadSlots[spreadSlots.length-1];const meaning=String(text||'').replace(/[.!?…]+$/,'');const focus=lowerFirst(meaning);const orientation=reversed?' Aunque la carta aparezca invertida, la energía sigue presente: se expresa trabada, desviada o todavía sin forma clara.':'';if(index===0)return `${card.name} muestra qué ya no alcanza: ${focus} ya no puede sostener la escena por sí solo. La posición pide reconocer qué forma, hábito o supuesto necesita dejar de ocupar el centro.${orientation}`;if(index===1)return `${card.name} muestra qué está moviendo la situación: ${focus} está operando en el presente y organiza la decisión que tenés delante.${orientation}`;return `${card.name} muestra qué puede abrirse: ${focus} puede convertirse en una posibilidad concreta si encuentra una forma de expresión y si el movimiento anterior se sostiene.${orientation}`;};
+    const ordoLens={
+      'Ordo Cinis':'la depuración de lo que terminó su ciclo',
+      'Ordo Aureum':'la voluntad que enciende y dirige la acción',
+      'Ordo Nox':'la escucha de lo velado antes de ponerle un nombre',
+      'Ordo Aetherium':'la relación que integra las partes en una escala mayor'
+    };
+    const correspondenceLens=card=>{const ordo=card&&card.ordo;const lens=ordoLens[ordo];const role=card&&card.role&&!/carta confirmada/i.test(card.role)?card.role.split('·').pop().trim():'';if(lens&&role)return `${lens}; su correspondencia de ${role.toLowerCase()} indica cómo se expresa esa fuerza`;if(lens)return lens;if(role)return `su correspondencia de ${role.toLowerCase()}`;return 'su lugar dentro del sistema EVIGILA';};
+    const positionReading=(card,index,reversed,text=cardMeaning(card))=>{const meaning=String(text||'').replace(/[.!?…]+$/,'');const focus=lowerFirst(meaning);const orientation=reversed?' Aunque la carta aparezca invertida, la energía sigue presente: se expresa trabada, desviada o todavía sin forma clara.':'';const correspondence=correspondenceLens(card);if(index===0)return `${card.name} muestra qué ya no alcanza: ${focus} ya no puede sostener la escena por sí solo. En esta puerta, ${correspondence} revela qué aspecto de esa forma necesita dejar de ocupar el centro.${orientation}`;if(index===1)return `${card.name} muestra qué está moviendo la situación: ${focus} está operando en el presente. En esta puerta, ${correspondence} señala cómo se organiza la tensión y qué decisión pide.${orientation}`;return `${card.name} muestra qué puede abrirse: ${focus} puede convertirse en una posibilidad concreta. En esta puerta, ${correspondence} indica la condición que debe sostenerse para que el movimiento encuentre forma.${orientation}`;};
     const interpretCard=(card,index,reversed)=>{const orientation=reversed?'Lectura invertida. ':'';return orientation+positionReading(card,index,reversed)+' Clave simbólica: '+symbolReading(card)+' Pregunta para observar: '+finishSentence(card.question)+' Práctica: '+finishSentence(card.practice)};
     const spreadCorrespondence=card=>[card&&card.ordo,card&&card.role&&!/carta confirmada/i.test(card.role)?card.role:null,card&&card.legacy&&`Legado ${card.legacy}`].filter(Boolean).join(' · ');
     const practiceUsedIds=new Set();
