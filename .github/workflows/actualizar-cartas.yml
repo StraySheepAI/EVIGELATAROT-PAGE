@@ -1,0 +1,31 @@
+name: Actualizar cartas desde la planilla
+
+on:
+  workflow_dispatch: {}          # botón "Run workflow" para actualizar al instante
+  schedule:
+    - cron: '17 9 * * *'         # todos los días, 6:17 (hora de Argentina)
+
+permissions:
+  contents: write
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Leer la planilla y regenerar data/cartas.js
+        run: node scripts/actualizar-cartas.mjs
+      - name: Publicar si hubo cambios
+        run: |
+          if git diff --quiet -- data/cartas.js; then
+            echo "La planilla no cambió."
+          else
+            git config user.name "evigila-bot"
+            git config user.email "evigila-bot@users.noreply.github.com"
+            git add data/cartas.js
+            git commit -m "Actualizar cartas desde la planilla"
+            git push
+          fi
